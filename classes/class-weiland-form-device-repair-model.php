@@ -26,30 +26,51 @@
  *  Created by PhpStorm.
  ******************************************************************/
 
-class Weiland_Form_Device_Model {
+class Weiland_Form_Device_Repair_Model {
 
-	const tableName = 'pl_weilandt_form_device';
+	const tableName = 'pl_weilandt_form_device_repair';
 
-	public $id = 0;
+	/**
+	 * @var string
+	 */
+	public $serial_no;
 
-	public $name = '';
+	/**
+	 * @var string
+	 */
+	public $problem_description;
 
+	/**
+	 * @var integer
+	 */
+	public $pl_weilandt_form_device_id;
+	/**
+	 * @var integer
+	 */
+	public $warranty;
+
+	/**
+	 * @return array
+	 */
 	public static function findAll() {
 
 		global $wpdb;
 
-		$devices = array();
+		$repair_devices = array();
 
 		$rawResults = $wpdb->get_results(
 			'SELECT * FROM '.$wpdb->prefix . self::tableName
 		);
 		foreach ($rawResults as $rawResult) {
-			$devices[] = new Weiland_Form_Device_Model($rawResult);
+			$repair_devices[] = new Weiland_Form_Device_Repair_Model($rawResult);
 		}
 
-		return $devices;
+		return $repair_devices;
 	}
 
+	/**
+	 * @param $values
+	 */
 	public function __construct($values) {
 		foreach($values as $key => $value) {
 			if(property_exists($this, $key)) {
