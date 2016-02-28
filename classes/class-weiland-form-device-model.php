@@ -30,10 +30,23 @@ class Weiland_Form_Device_Model {
 
 	const tableName = 'pl_weilandt_form_device';
 
+	/**
+	 * @var int
+	 */
 	public $id = 0;
 
+	/**
+	 * @var string
+	 */
 	public $name = '';
+	/**
+	 * @var int
+	 */
+	public $pl_weilandt_form_device_repair = 0;
 
+	/**
+	 * @return array
+	 */
 	public static function findAll() {
 
 		global $wpdb;
@@ -50,6 +63,9 @@ class Weiland_Form_Device_Model {
 		return $devices;
 	}
 
+	/**
+	 * @param $values
+	 */
 	public function __construct($values) {
 		foreach($values as $key => $value) {
 			if(property_exists($this, $key)) {
