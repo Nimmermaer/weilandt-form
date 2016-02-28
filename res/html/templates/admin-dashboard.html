@@ -1,7 +1,11 @@
-Hello {{ name }}!
 
+
+<form method="post" action='{{ siteUrl }}/wp-admin/admin.php?page=Weilandt&pl_weilandt[controller]=device&pl_weilandt[action]=new' id="form_2">
+    <button type="submit">add new</button>
+</form>
+{{ siteUrl }}
 <ul>
-	{% for device in devices %}
-	<li>{{ device.name }}</li>
-	{% endfor %}
+    {% for device in devices %}
+    <li>{{ device.name }}</li>
+    {% endfor %}
 </ul>

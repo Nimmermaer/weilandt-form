@@ -154,7 +154,7 @@ Here is a list of the built-in loaders Twig provides:
 ..........................
 
 .. versionadded:: 1.10
-    The ``prependPath()`` and support for namespaces were added in Twig 1.10.
+The ``prependPath()`` and support for namespaces were added in Twig 1.10.
 
 ``Twig_Loader_Filesystem`` loads templates from the file system. This loader
 can find templates in folders on the file system and is the preferred way to
@@ -478,7 +478,7 @@ Profiler Extension
 ~~~~~~~~~~~~~~~~~~
 
 .. versionadded:: 1.18
-    The Profile extension was added in Twig 1.18.
+The Profile extension was added in Twig 1.18.
 
 The ``profiler`` extension enables a profiler for Twig templates; it should
 only be used on your development machines as it adds some overhead::

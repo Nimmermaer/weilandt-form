@@ -19,22 +19,21 @@
  *
  * @deprecated since 1.12 (to be removed in 2.0)
  */
-interface Twig_FunctionInterface
-{
-    /**
-     * Compiles a function.
-     *
-     * @return string The PHP code for the function
-     */
-    public function compile();
+interface Twig_FunctionInterface {
+	/**
+	 * Compiles a function.
+	 *
+	 * @return string The PHP code for the function
+	 */
+	public function compile();
 
-    public function needsEnvironment();
+	public function needsEnvironment();
 
-    public function needsContext();
+	public function needsContext();
 
-    public function getSafe(Twig_Node $filterArgs);
+	public function getSafe( Twig_Node $filterArgs );
 
-    public function setArguments($arguments);
+	public function setArguments( $arguments );
 
-    public function getArguments();
+	public function getArguments();
 }

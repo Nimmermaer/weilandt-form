@@ -9,55 +9,51 @@
  * file that was distributed with this source code.
  */
 
-require_once dirname(__FILE__).'/FilesystemHelper.php';
+require_once dirname( __FILE__ ) . '/FilesystemHelper.php';
 
-class Twig_Tests_FileCachingTest extends PHPUnit_Framework_TestCase
-{
-    private $env;
-    private $tmpDir;
+class Twig_Tests_FileCachingTest extends PHPUnit_Framework_TestCase {
+	private $env;
+	private $tmpDir;
 
-    protected function setUp()
-    {
-        $this->tmpDir = sys_get_temp_dir().'/TwigTests';
-        if (!file_exists($this->tmpDir)) {
-            @mkdir($this->tmpDir, 0777, true);
-        }
+	protected function setUp() {
+		$this->tmpDir = sys_get_temp_dir() . '/TwigTests';
+		if ( ! file_exists( $this->tmpDir ) ) {
+			@mkdir( $this->tmpDir, 0777, TRUE );
+		}
 
-        if (!is_writable($this->tmpDir)) {
-            $this->markTestSkipped(sprintf('Unable to run the tests as "%s" is not writable.', $this->tmpDir));
-        }
+		if ( ! is_writable( $this->tmpDir ) ) {
+			$this->markTestSkipped( sprintf( 'Unable to run the tests as "%s" is not writable.', $this->tmpDir ) );
+		}
 
-        $this->env = new Twig_Environment(new Twig_Loader_Array(array('index' => 'index', 'index2' => 'index2')), array('cache' => $this->tmpDir));
-    }
+		$this->env = new Twig_Environment( new Twig_Loader_Array( array( 'index' => 'index', 'index2' => 'index2' ) ),
+		                                   array( 'cache' => $this->tmpDir ) );
+	}
 
-    protected function tearDown()
-    {
-        Twig_Tests_FilesystemHelper::removeDir($this->tmpDir);
-    }
+	protected function tearDown() {
+		Twig_Tests_FilesystemHelper::removeDir( $this->tmpDir );
+	}
 
-    /**
-     * @group legacy
-     */
-    public function testWritingCacheFiles()
-    {
-        $name = 'index';
-        $this->env->loadTemplate($name);
-        $cacheFileName = $this->env->getCacheFilename($name);
+	/**
+	 * @group legacy
+	 */
+	public function testWritingCacheFiles() {
+		$name = 'index';
+		$this->env->loadTemplate( $name );
+		$cacheFileName = $this->env->getCacheFilename( $name );
 
-        $this->assertTrue(file_exists($cacheFileName), 'Cache file does not exist.');
-    }
+		$this->assertTrue( file_exists( $cacheFileName ), 'Cache file does not exist.' );
+	}
 
-    /**
-     * @group legacy
-     */
-    public function testClearingCacheFiles()
-    {
-        $name = 'index2';
-        $this->env->loadTemplate($name);
-        $cacheFileName = $this->env->getCacheFilename($name);
+	/**
+	 * @group legacy
+	 */
+	public function testClearingCacheFiles() {
+		$name = 'index2';
+		$this->env->loadTemplate( $name );
+		$cacheFileName = $this->env->getCacheFilename( $name );
 
-        $this->assertTrue(file_exists($cacheFileName), 'Cache file does not exist.');
-        $this->env->clearCacheFiles();
-        $this->assertFalse(file_exists($cacheFileName), 'Cache file was not cleared.');
-    }
+		$this->assertTrue( file_exists( $cacheFileName ), 'Cache file does not exist.' );
+		$this->env->clearCacheFiles();
+		$this->assertFalse( file_exists( $cacheFileName ), 'Cache file was not cleared.' );
+	}
 }

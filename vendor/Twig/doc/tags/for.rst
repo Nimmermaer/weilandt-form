@@ -82,7 +82,7 @@ Variable              Description
     looping with a condition.
 
 .. versionadded:: 1.2
-    The ``if`` modifier support has been added in Twig 1.2.
+The ``if`` modifier support has been added in Twig 1.2.
 
 Adding a condition
 ------------------

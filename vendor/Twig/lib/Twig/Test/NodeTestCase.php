@@ -8,57 +8,51 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-abstract class Twig_Test_NodeTestCase extends PHPUnit_Framework_TestCase
-{
-    abstract public function getTests();
 
-    /**
-     * @dataProvider getTests
-     */
-    public function testCompile($node, $source, $environment = null, $isPattern = false)
-    {
-        $this->assertNodeCompilation($source, $node, $environment, $isPattern);
-    }
+abstract class Twig_Test_NodeTestCase extends PHPUnit_Framework_TestCase {
+	abstract public function getTests();
 
-    public function assertNodeCompilation($source, Twig_Node $node, Twig_Environment $environment = null, $isPattern = false)
-    {
-        $compiler = $this->getCompiler($environment);
-        $compiler->compile($node);
+	/**
+	 * @dataProvider getTests
+	 */
+	public function testCompile( $node, $source, $environment = NULL, $isPattern = FALSE ) {
+		$this->assertNodeCompilation( $source, $node, $environment, $isPattern );
+	}
 
-        if ($isPattern) {
-            $this->assertStringMatchesFormat($source, trim($compiler->getSource()));
-        } else {
-            $this->assertEquals($source, trim($compiler->getSource()));
-        }
-    }
+	public function assertNodeCompilation( $source, Twig_Node $node, Twig_Environment $environment = NULL, $isPattern = FALSE ) {
+		$compiler = $this->getCompiler( $environment );
+		$compiler->compile( $node );
 
-    protected function getCompiler(Twig_Environment $environment = null)
-    {
-        return new Twig_Compiler(null === $environment ? $this->getEnvironment() : $environment);
-    }
+		if ( $isPattern ) {
+			$this->assertStringMatchesFormat( $source, trim( $compiler->getSource() ) );
+		} else {
+			$this->assertEquals( $source, trim( $compiler->getSource() ) );
+		}
+	}
 
-    protected function getEnvironment()
-    {
-        return new Twig_Environment(new Twig_Loader_Array(array()));
-    }
+	protected function getCompiler( Twig_Environment $environment = NULL ) {
+		return new Twig_Compiler( NULL === $environment ? $this->getEnvironment() : $environment );
+	}
 
-    protected function getVariableGetter($name, $line = false)
-    {
-        $line = $line > 0 ? "// line {$line}\n" : '';
+	protected function getEnvironment() {
+		return new Twig_Environment( new Twig_Loader_Array( array() ) );
+	}
 
-        if (PHP_VERSION_ID >= 50400) {
-            return sprintf('%s(isset($context["%s"]) ? $context["%s"] : null)', $line, $name, $name);
-        }
+	protected function getVariableGetter( $name, $line = FALSE ) {
+		$line = $line > 0 ? "// line {$line}\n" : '';
 
-        return sprintf('%s$this->getContext($context, "%s")', $line, $name);
-    }
+		if ( PHP_VERSION_ID >= 50400 ) {
+			return sprintf( '%s(isset($context["%s"]) ? $context["%s"] : null)', $line, $name, $name );
+		}
 
-    protected function getAttributeGetter()
-    {
-        if (function_exists('twig_template_get_attributes')) {
-            return 'twig_template_get_attributes($this, ';
-        }
+		return sprintf( '%s$this->getContext($context, "%s")', $line, $name );
+	}
 
-        return '$this->getAttribute(';
-    }
+	protected function getAttributeGetter() {
+		if ( function_exists( 'twig_template_get_attributes' ) ) {
+			return 'twig_template_get_attributes($this, ';
+		}
+
+		return '$this->getAttribute(';
+	}
 }

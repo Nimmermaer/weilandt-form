@@ -9,22 +9,19 @@
  * file that was distributed with this source code.
  */
 
-class Twig_Tests_Node_Expression_ConstantTest extends Twig_Test_NodeTestCase
-{
-    public function testConstructor()
-    {
-        $node = new Twig_Node_Expression_Constant('foo', 1);
+class Twig_Tests_Node_Expression_ConstantTest extends Twig_Test_NodeTestCase {
+	public function testConstructor() {
+		$node = new Twig_Node_Expression_Constant( 'foo', 1 );
 
-        $this->assertEquals('foo', $node->getAttribute('value'));
-    }
+		$this->assertEquals( 'foo', $node->getAttribute( 'value' ) );
+	}
 
-    public function getTests()
-    {
-        $tests = array();
+	public function getTests() {
+		$tests = array();
 
-        $node = new Twig_Node_Expression_Constant('foo', 1);
-        $tests[] = array($node, '"foo"');
+		$node    = new Twig_Node_Expression_Constant( 'foo', 1 );
+		$tests[] = array( $node, '"foo"' );
 
-        return $tests;
-    }
+		return $tests;
+	}
 }

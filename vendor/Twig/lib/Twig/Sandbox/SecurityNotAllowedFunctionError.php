@@ -14,18 +14,15 @@
  *
  * @author Martin Hasoň <martin.hason@gmail.com>
  */
-class Twig_Sandbox_SecurityNotAllowedFunctionError extends Twig_Sandbox_SecurityError
-{
-    private $functionName;
+class Twig_Sandbox_SecurityNotAllowedFunctionError extends Twig_Sandbox_SecurityError {
+	private $functionName;
 
-    public function __construct($message, $functionName, $lineno = -1, $filename = null, Exception $previous = null)
-    {
-        parent::__construct($message, $lineno, $filename, $previous);
-        $this->functionName = $functionName;
-    }
+	public function __construct( $message, $functionName, $lineno = - 1, $filename = NULL, Exception $previous = NULL ) {
+		parent::__construct( $message, $lineno, $filename, $previous );
+		$this->functionName = $functionName;
+	}
 
-    public function getFunctionName()
-    {
-        return $this->functionName;
-    }
+	public function getFunctionName() {
+		return $this->functionName;
+	}
 }

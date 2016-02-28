@@ -26,28 +26,102 @@
  *  Created by PhpStorm.
  ******************************************************************/
 
-class Weiland_Form_Device_Repair_Model {
+/**
+ * Class Weiland_Form_User_Model
+ */
+class Weiland_Form_User_Model {
 
-	const tableName = 'pl_weilandt_form_device_repair';
-
-	/**
-	 * @var string
-	 */
-	public $serial_no;
-
-	/**
-	 * @var string
-	 */
-	public $problem_description;
+	const tableName = 'pl_weilandt_form_device_user';
 
 	/**
 	 * @var integer
 	 */
-	public $pl_weilandt_form_device_id;
+	public $gender;
+
+	/**
+	 * @var string
+	 */
+	public $contact_person;
+
+	/**
+	 * @var string
+	 */
+	public $company;
+
+	/**
+	 * @var string
+	 */
+	public $street_no;
+
+	/**
+	 * @var string
+	 */
+	public $zip;
+
+	/**
+	 * @var string
+	 */
+	public $city;
+
+	/**
+	 * @var string
+	 */
+	public $country;
+
+	/**
+	 * @var string
+	 */
+	public $phone;
+
+	/**
+	 * @var string
+	 */
+	public $fax;
+
+	/**
+	 * @var string
+	 */
+	public $mail;
+
+	/**
+	 * @var string
+	 */
+	public $vat_no;
+
+	/**
+	 * @var string
+	 */
+	public $back_address;
+
 	/**
 	 * @var integer
 	 */
-	public $warranty;
+	public $cost_estimate;
+
+	/**
+	 * @var integer
+	 */
+	public $repeat_repair;
+
+	/**
+	 * @var string
+	 */
+	public $comments;
+
+	/**
+	 * @var integer
+	 */
+	public $agb;
+
+	/**
+	 * @var integer
+	 */
+	public $hidden;
+
+	/**
+	 * @var integer
+	 */
+	public $deleted;
 
 	/**
 	 * @return array
@@ -56,24 +130,22 @@ class Weiland_Form_Device_Repair_Model {
 
 		global $wpdb;
 
-		$repair_devices = array();
+		$users = array();
 
-		$rawResults = $wpdb->get_results(
-			'SELECT * FROM '.$wpdb->prefix . self::tableName
-		);
-		foreach ($rawResults as $rawResult) {
-			$repair_devices[] = new Weiland_Form_Device_Repair_Model($rawResult);
+		$rawResults = $wpdb->get_results( 'SELECT * FROM ' . $wpdb->prefix . self::tableName );
+		foreach ( $rawResults as $rawResult ) {
+			$users[] = new Weiland_Form_User_Model( $rawResult );
 		}
 
-		return $repair_devices;
+		return $users;
 	}
 
 	/**
 	 * @param $values
 	 */
-	public function __construct($values) {
-		foreach($values as $key => $value) {
-			if(property_exists($this, $key)) {
+	public function __construct( $values ) {
+		foreach ( $values as $key => $value ) {
+			if ( property_exists( $this, $key ) ) {
 				$this->$key = $value;
 			}
 		}

@@ -2,7 +2,7 @@
 ============
 
 .. versionadded: 1.12.1
-    constant now accepts object instances as the second argument.
+constant now accepts object instances as the second argument.
 
 ``constant`` returns the constant value for a given string:
 

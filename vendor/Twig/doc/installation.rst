@@ -47,7 +47,7 @@ Installing the C extension
 --------------------------
 
 .. versionadded:: 1.4
-    The C extension was added in Twig 1.4.
+The C extension was added in Twig 1.4.
 
 .. note::
 

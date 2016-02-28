@@ -36,16 +36,14 @@ define( 'WEILANDT_PATH', plugin_dir_path( __FILE__ ) );
 define( 'WEILANDT_URI', plugin_dir_url( __FILE__ ) );
 
 
-register_activation_hook(
-	__FILE__,
-	function() {
+register_activation_hook( __FILE__,
+	function () {
 		require_once plugin_dir_path( __FILE__ ) . 'classes/class-weiland-form-plugin-manager.php';
 		$pluginManager = new Weiland_Form_Plugin_Manager();
 		$pluginManager->activate();
-	}
-);
+	} );
 
-$runWeilandtForm = function() {
+$runWeilandtForm = function () {
 	require_once plugin_dir_path( __FILE__ ) . 'classes/class-weiland-form-plugin-manager.php';
 	$pluginManager = new Weiland_Form_Plugin_Manager();
 	$pluginManager->run();

@@ -26,52 +26,23 @@
  *  Created by PhpStorm.
  ******************************************************************/
 
-class Weiland_Form_Device_Model {
-
-	const tableName = 'pl_weilandt_form_device';
-
-	/**
-	 * @var int
-	 */
-	public $id = 0;
+/**
+ * Class Weiland_Form_Admin_Controller
+ */
+class Weiland_Form_Admin_Controller extends Weiland_Form_Controller {
 
 	/**
-	 * @var string
+	 *  dashboardAction
 	 */
-	public $name = '';
-	/**
-	 * @var int
-	 */
-	public $pl_weilandt_form_device_repair = 0;
-
-	/**
-	 * @return array
-	 */
-	public static function findAll() {
-
-		global $wpdb;
-
-		$devices = array();
-
-		$rawResults = $wpdb->get_results(
-			'SELECT * FROM '.$wpdb->prefix . self::tableName
-		);
-		foreach ($rawResults as $rawResult) {
-			$devices[] = new Weiland_Form_Device_Model($rawResult);
-		}
-
-		return $devices;
+	public function dashboardAction() {
+		$devices = Weiland_Form_Device_Model::findAll();
+		echo $this->view->render( 'admin-dashboard.html',
+		                          array(
+			                          'name'    => 'Michael',
+			                          'devices' => $devices,
+			                          'siteUrl' => get_site_url()
+		                          ) );
 	}
 
-	/**
-	 * @param $values
-	 */
-	public function __construct($values) {
-		foreach($values as $key => $value) {
-			if(property_exists($this, $key)) {
-				$this->$key = $value;
-			}
-		}
-	}
 
 }

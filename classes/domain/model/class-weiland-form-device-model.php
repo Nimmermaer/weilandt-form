@@ -26,18 +26,53 @@
  *  Created by PhpStorm.
  ******************************************************************/
 
-class Weiland_Form_Controller {
+/**
+ * Class Weiland_Form_Device_Model
+ */
+class Weiland_Form_Device_Model {
 
-	protected $view = NULL;
+	const tableName = 'pl_weilandt_form_device';
 
-	public function __construct() {
-		require_once WEILANDT_PATH . 'vendor/Twig/lib/Twig/Autoloader.php';
-		Twig_Autoloader::register();
-		$loader = new Twig_Loader_Filesystem(WEILANDT_PATH . '/res/html/templates');
-		$this->view = new Twig_Environment($loader, array(
-			'debug' => true,
-			'cache' => WEILANDT_PATH . '/res/html/twig_compilation_cache',
-		));
-		$this->view->addExtension(new Twig_Extension_Debug());
+	/**
+	 * @var int
+	 */
+	public $id = 0;
+
+	/**
+	 * @var string
+	 */
+	public $name = '';
+	/**
+	 * @var int
+	 */
+	public $pl_weilandt_form_device_repair = 0;
+
+	/**
+	 * @return array
+	 */
+	public static function findAll() {
+
+		global $wpdb;
+
+		$devices = array();
+
+		$rawResults = $wpdb->get_results( 'SELECT * FROM ' . $wpdb->prefix . self::tableName );
+		foreach ( $rawResults as $rawResult ) {
+			$devices[] = new Weiland_Form_Device_Model( $rawResult );
+		}
+
+		return $devices;
 	}
+
+	/**
+	 * @param $values
+	 */
+	public function __construct( $values ) {
+		foreach ( $values as $key => $value ) {
+			if ( property_exists( $this, $key ) ) {
+				$this->$key = $value;
+			}
+		}
+	}
+
 }

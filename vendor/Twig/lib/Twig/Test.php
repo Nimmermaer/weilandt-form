@@ -9,7 +9,8 @@
  * file that was distributed with this source code.
  */
 
-@trigger_error('The Twig_Test class is deprecated since version 1.12 and will be removed in 2.0. Use Twig_SimpleTest instead.', E_USER_DEPRECATED);
+@trigger_error( 'The Twig_Test class is deprecated since version 1.12 and will be removed in 2.0. Use Twig_SimpleTest instead.',
+                E_USER_DEPRECATED );
 
 /**
  * Represents a template test.
@@ -18,20 +19,18 @@
  *
  * @deprecated since 1.12 (to be removed in 2.0)
  */
-abstract class Twig_Test implements Twig_TestInterface, Twig_TestCallableInterface
-{
-    protected $options;
-    protected $arguments = array();
+abstract class Twig_Test implements Twig_TestInterface, Twig_TestCallableInterface {
+	protected $options;
+	protected $arguments = array();
 
-    public function __construct(array $options = array())
-    {
-        $this->options = array_merge(array(
-            'callable' => null,
-        ), $options);
-    }
+	public function __construct( array $options = array() ) {
+		$this->options = array_merge( array(
+			                              'callable' => NULL,
+		                              ),
+		                              $options );
+	}
 
-    public function getCallable()
-    {
-        return $this->options['callable'];
-    }
+	public function getCallable() {
+		return $this->options['callable'];
+	}
 }

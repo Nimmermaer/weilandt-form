@@ -199,7 +199,7 @@ Named Arguments
 ---------------
 
 .. versionadded:: 1.12
-    Support for named arguments was added in Twig 1.12.
+Support for named arguments was added in Twig 1.12.
 
 .. code-block:: jinja
 
@@ -498,7 +498,7 @@ Macros
 ------
 
 .. versionadded:: 1.12
-    Support for default argument values was added in Twig 1.12.
+Support for default argument values was added in Twig 1.12.
 
 Macros are comparable with functions in regular programming languages. They
 are useful to reuse often used HTML fragments to not repeat yourself.
@@ -577,7 +577,7 @@ Literals
 ~~~~~~~~
 
 .. versionadded:: 1.5
-    Support for hash keys as names and expressions was added in Twig 1.5.
+Support for hash keys as names and expressions was added in Twig 1.5.
 
 The simplest form of expressions are literals. Literals are representations
 for PHP types such as strings, numbers, and arrays. The following literals
@@ -769,7 +769,7 @@ Other Operators
 ~~~~~~~~~~~~~~~
 
 .. versionadded:: 1.12.0
-    Support for the extended ternary operator was added in Twig 1.12.0.
+Support for the extended ternary operator was added in Twig 1.12.0.
 
 The following operators don't fit into any of the other categories:
 
@@ -819,7 +819,7 @@ String Interpolation
 ~~~~~~~~~~~~~~~~~~~~
 
 .. versionadded:: 1.5
-    String interpolation was added in Twig 1.5.
+String interpolation was added in Twig 1.5.
 
 String interpolation (`#{expression}`) allows any valid expression to appear
 within a *double-quoted string*. The result of evaluating that expression is
@@ -836,7 +836,7 @@ Whitespace Control
 ------------------
 
 .. versionadded:: 1.1
-    Tag level whitespace control was added in Twig 1.1.
+Tag level whitespace control was added in Twig 1.1.
 
 The first newline after a template tag is removed automatically (like in PHP.)
 Whitespace is not further modified by the template engine, so each whitespace
@@ -889,7 +889,7 @@ If you are looking for new tags, filters, or functions, have a look at the Twig 
 `extension repository`_.
 
 If you want to create your own, read the :ref:`Creating an
-Extension<creating_extensions>` chapter.
+    Extension<creating_extensions>` chapter.
 
 .. _`Twig bundle`:                https://github.com/Anomareh/PHP-Twig.tmbundle
 .. _`Jinja syntax plugin`:        http://jinja.pocoo.org/docs/integration/#vim

@@ -2,7 +2,7 @@
 =========
 
 .. versionadded:: 1.8
-    The ``embed`` tag was added in Twig 1.8.
+The ``embed`` tag was added in Twig 1.8.
 
 The ``embed`` tag combines the behaviour of :doc:`include<include>` and
 :doc:`extends<extends>`.
@@ -76,7 +76,7 @@ two boxes side by side:
     ┌─── page layout ─────────────────────┐
     │                                     │
     │           ┌── block "content" ──┐   │
-    │           │                     │   │    
+    │           │                     │   │
     │           │ ┌ block ┐ ┌ block ┐ │   │
     │           │ │"left" │ │"right"│ │   │
     │           │ │       │ │       │ │   │

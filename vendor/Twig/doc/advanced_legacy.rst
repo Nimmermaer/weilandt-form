@@ -261,7 +261,7 @@ Dynamic Filters
 ~~~~~~~~~~~~~~~
 
 .. versionadded:: 1.5
-    Dynamic filters support was added in Twig 1.5.
+Dynamic filters support was added in Twig 1.5.
 
 A filter name containing the special ``*`` character is a dynamic filter as
 the ``*`` can be any string::
@@ -328,7 +328,7 @@ Dynamic Functions
 ~~~~~~~~~~~~~~~~~
 
 .. versionadded:: 1.5
-    Dynamic functions support was added in Twig 1.5.
+Dynamic functions support was added in Twig 1.5.
 
 A function name containing the special ``*`` character is a dynamic function
 as the ``*`` can be any string::
@@ -833,7 +833,7 @@ Testing an Extension
 --------------------
 
 .. versionadded:: 1.10
-    Support for functional tests was added in Twig 1.10.
+Support for functional tests was added in Twig 1.10.
 
 Functional Tests
 ~~~~~~~~~~~~~~~~

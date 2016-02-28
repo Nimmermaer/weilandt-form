@@ -26,18 +26,58 @@
  *  Created by PhpStorm.
  ******************************************************************/
 
-class Weiland_Form_Admin_Controller extends Weiland_Form_Controller {
+/**
+ * Class Weiland_Form_Device_Repair_Model
+ */
+class Weiland_Form_Device_Repair_Model {
 
-	public function dashboardAction() {
+	const tableName = 'pl_weilandt_form_device_repair';
 
-		$devices = Weiland_Form_Device_Model::findAll();
+	/**
+	 * @var string
+	 */
+	public $serial_no;
 
-		echo $this->view->render(
-			'admin-dashboard.html',
-			array(
-				'name' => 'Michael',
-				'devices' => $devices
-			)
-		);
+	/**
+	 * @var string
+	 */
+	public $problem_description;
+
+	/**
+	 * @var integer
+	 */
+	public $pl_weilandt_form_device_id;
+	/**
+	 * @var integer
+	 */
+	public $warranty;
+
+	/**
+	 * @return array
+	 */
+	public static function findAll() {
+
+		global $wpdb;
+
+		$repair_devices = array();
+
+		$rawResults = $wpdb->get_results( 'SELECT * FROM ' . $wpdb->prefix . self::tableName );
+		foreach ( $rawResults as $rawResult ) {
+			$repair_devices[] = new Weiland_Form_Device_Repair_Model( $rawResult );
+		}
+
+		return $repair_devices;
 	}
+
+	/**
+	 * @param $values
+	 */
+	public function __construct( $values ) {
+		foreach ( $values as $key => $value ) {
+			if ( property_exists( $this, $key ) ) {
+				$this->$key = $value;
+			}
+		}
+	}
+
 }

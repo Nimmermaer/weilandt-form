@@ -16,12 +16,11 @@
  *
  * @deprecated since 1.12 (to be removed in 2.0)
  */
-interface Twig_TestInterface
-{
-    /**
-     * Compiles a test.
-     *
-     * @return string The PHP code for the test
-     */
-    public function compile();
+interface Twig_TestInterface {
+	/**
+	 * Compiles a test.
+	 *
+	 * @return string The PHP code for the test
+	 */
+	public function compile();
 }

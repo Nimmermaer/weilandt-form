@@ -2,7 +2,7 @@
 ====================
 
 .. versionadded:: 1.4
-    The ``convert_encoding`` filter was added in Twig 1.4.
+The ``convert_encoding`` filter was added in Twig 1.4.
 
 The ``convert_encoding`` filter converts a string from one encoding to
 another. The first argument is the expected output charset and the second one

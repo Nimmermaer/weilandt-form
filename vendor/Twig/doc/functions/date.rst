@@ -2,10 +2,10 @@
 ========
 
 .. versionadded:: 1.6
-    The date function has been added in Twig 1.6.
+The date function has been added in Twig 1.6.
 
 .. versionadded:: 1.6.1
-    The default timezone support has been added in Twig 1.6.1.
+The default timezone support has been added in Twig 1.6.1.
 
 Converts an argument to a date to allow date comparison:
 
