@@ -34,6 +34,8 @@ class Weiland_Form_Controller {
 	protected $view = NULL;
 
 	public function __construct() {
+		$this->showFlashMessages();
+
 		require_once WEILANDT_PATH . 'vendor/Twig/lib/Twig/Autoloader.php';
 		Twig_Autoloader::register();
 		$loader     = new Twig_Loader_Filesystem( WEILANDT_PATH . '/res/html/templates' );
@@ -42,5 +44,27 @@ class Weiland_Form_Controller {
 			'cache' => WEILANDT_PATH . '/res/html/twig_compilation_cache',
 		) );
 		$this->view->addExtension( new Twig_Extension_Debug() );
+	}
+
+	public function showFlashMessages() {
+		WPFlashMessages::show_flash_messages();
+	}
+
+	public function redirect($actionName, $controllerName) {
+		$redirectUrl = get_site_url().'/wp-admin/admin.php?page=Weilandt&pl_weilandt[controller]='.$controllerName.'&pl_weilandt[action]='.$actionName;
+		if (!headers_sent())
+		{
+			header('Location: '.$redirectUrl);
+			exit;
+		}
+		else
+		{
+			echo '<script type="text/javascript">';
+			echo 'window.location.href="'.$redirectUrl.'";';
+			echo '</script>';
+			echo '<noscript>';
+			echo '<meta http-equiv="refresh" content="0;url='.$redirectUrl.'" />';
+			echo '</noscript>'; exit;
+		}
 	}
 }

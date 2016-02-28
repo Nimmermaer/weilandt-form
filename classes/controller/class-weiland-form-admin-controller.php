@@ -35,6 +35,7 @@ class Weiland_Form_Admin_Controller extends Weiland_Form_Controller {
 	 *  dashboardAction
 	 */
 	public function dashboardAction() {
+		WPFlashMessages::show_flash_messages();
 		$devices = Weiland_Form_Device_Model::findAll();
 		echo $this->view->render( 'admin-dashboard.html',
 		                          array(
@@ -42,7 +43,6 @@ class Weiland_Form_Admin_Controller extends Weiland_Form_Controller {
 			                          'devices' => $devices,
 			                          'siteUrl' => get_site_url()
 		                          ) );
+
 	}
-
-
 }

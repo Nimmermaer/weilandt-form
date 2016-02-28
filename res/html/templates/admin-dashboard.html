@@ -6,6 +6,11 @@
 {{ siteUrl }}
 <ul>
     {% for device in devices %}
-    <li>{{ device.name }}</li>
+    <li>
+        <form method="post" action='{{ siteUrl }}/wp-admin/admin.php?page=Weilandt&pl_weilandt[controller]=device&pl_weilandt[action]=new' id="form_2">
+            {{ device.name }} <button type="submit">edit</button>
+            <button type="submit">deleted</button>
+        </form>
+       </li>
     {% endfor %}
 </ul>

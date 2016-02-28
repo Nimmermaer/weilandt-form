@@ -29,56 +29,57 @@
 /**
  * Class Weiland_Form_Admin_Controller
  */
-class Weiland_Form_Device_Controller extends Weiland_Form_Admin_Controller{
+class Weiland_Form_Device_Controller extends Weiland_Form_Admin_Controller {
 
 
 	/**
 	 *
 	 */
 	public function newAction() {
-		echo $this->view->render( 'admin-device-new.html',
+		echo $this->view->render( 'device/new.html',
 		                          array(
 			                          'siteUrl' => get_site_url()
 		                          ) );
 	}
-
+	public function listAction() {
+		echo $this->view->render( 'device/list.html',
+		                          array(
+			                          'siteUrl' => get_site_url()
+		                          ) );
+	}
+	public function showAction() {
+		echo $this->view->render( 'device/show.html',
+		                          array(
+			                          'siteUrl' => get_site_url()
+		                          ) );
+	}
 	/**
 	 *
 	 */
 	public function addAction() {
 		global $wpdb;
-		$name = $_REQUEST['pl_weilandt_device']['name'];
+		$name = '';
+		$success = false;
+		if ( array_key_exists( 'pl_weilandt_device', $_REQUEST ) ) {
+			$name = $_REQUEST['pl_weilandt_device']['name'];
+		}
 
 		if ( $name ) {
 			$wpdb->insert( $wpdb->prefix . 'pl_weilandt_form_device',
 			               array(
-				              	'name' => $name
+				               'name' => $name
 			               ) );
-			echo $wpdb->insert_id;
-
-			var_dump($wpdb->insert_id);
-			add_action( 'admin_notices',
-				function () {
-					$success = 'Neues Gerät wurde angelegt'; //_e( 'Done!', 'sample-text-domain' );
-					print ' <div class="notice notice-success is-dismissible">
-			<p>' . $success . '</p>
-		</div>';
-				} );
+			$wpdb->insert_id;
+			$message = 'funktioniert';
+			queue_flash_message( $message, $class = 'updated' );
 		} else {
-			add_action( 'admin_notices', function () {
-
-				/*$class   = 'notice notice-error';
-				$message = __( 'Irks! An error has occurred.', 'sample-text-domain' );
-
-				printf( '<div class="%1$s"><p>%2$s</p></div>', $class, $message );
-				*/
-				$success = 'Leider konnte kein neues Gerät angelegt werden'; //_e( 'Done!', 'sample-text-domain' );
-				print ' <div class="notice notice-success is-dismissible">
-			<p>' . $success . '</p></div>';
-			});
+			$message = 'funktioniert nicht';
+			queue_flash_message( $message, $class = 'error' );
 		}
-
-		$this->dashboardAction();
+		$this->redirect(
+			'dashboard',
+			'admin'
+		);
 	}
 
 }
