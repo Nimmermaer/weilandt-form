@@ -48,6 +48,49 @@ class Weiland_Form_Device_Model {
 	public $pl_weilandt_form_device_repair = 0;
 
 	/**
+	 * @return int
+	 */
+	public function getId() {
+		return $this->id;
+	}
+
+	/**
+	 * @param int $id
+	 */
+	public function setId( $id ) {
+		$this->id = $id;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getName() {
+		return $this->name;
+	}
+
+	/**
+	 * @param string $name
+	 */
+	public function setName( $name ) {
+		$this->name = $name;
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getPlWeilandtFormDeviceRepair() {
+		return $this->pl_weilandt_form_device_repair;
+	}
+
+	/**
+	 * @param int $pl_weilandt_form_device_repair
+	 */
+	public function setPlWeilandtFormDeviceRepair( $pl_weilandt_form_device_repair ) {
+		$this->pl_weilandt_form_device_repair = $pl_weilandt_form_device_repair;
+	}
+
+
+	/**
 	 * @return array
 	 */
 	public static function findAll() {
@@ -65,14 +108,51 @@ class Weiland_Form_Device_Model {
 	}
 
 	/**
+	 * @param $id
+	 *
+	 * @return Weiland_Form_Device_Model
+	 */
+	public static function findById( $id ) {
+
+		global $wpdb;
+
+		$devices   = array();
+		$rawResult = $wpdb->get_results( 'SELECT * FROM ' . $wpdb->prefix . self::tableName . ' WHERE id=' . $id );
+		$device    = new Weiland_Form_Device_Model( $rawResult[0] );
+		return $device;
+	}
+
+	/**
+	 * @param integer $id
+	 * @param string $name
+	 */
+	public static function update( $id, $name ) {
+		global $wpdb;
+		$wpdb->update(
+			$wpdb->prefix . self::tableName,
+			array(
+				'name' => $name
+			),
+			array( 'id' => $id )
+		);
+	}
+
+	/**
 	 * @param $values
 	 */
 	public function __construct( $values ) {
-		foreach ( $values as $key => $value ) {
-			if ( property_exists( $this, $key ) ) {
-				$this->$key = $value;
+		if ( count( $values ) > 1 ) {
+			foreach ( $values as $key => $value ) {
+				if ( property_exists( $this, $key ) ) {
+					$this->$key = $value;
+				}
 			}
+		} else {
+			$this->id                             = $values->id;
+			$this->name                           = $values->name;
+			if(property_exists ($values , 'pl_weilandt_form_device_repair'))
+			$this->pl_weilandt_form_device_repair = $values->pl_weilandt_form_device_repair;
+
 		}
 	}
-
 }

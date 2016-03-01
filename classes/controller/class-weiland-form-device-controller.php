@@ -32,32 +32,34 @@
 class Weiland_Form_Device_Controller extends Weiland_Form_Admin_Controller {
 
 
-	/**
-	 *
-	 */
-	public function newAction() {
-		echo $this->view->render( 'device/new.html',
-		                          array(
-			                          'siteUrl' => get_site_url()
-		                          ) );
-	}
+
+
 	public function listAction() {
-		echo $this->view->render( 'device/list.html',
+		global $wpdb;
+
+		echo $this->view->render( 'backend/device/list.html',
 		                          array(
 			                          'siteUrl' => get_site_url()
 		                          ) );
 	}
 	public function showAction() {
-		echo $this->view->render( 'device/show.html',
+		echo $this->view->render( 'backend/device/show.html',
 		                          array(
 			                          'siteUrl' => get_site_url()
 		                          ) );
+	}
+	public function editAction() {
+	 $device =  Weiland_Form_Device_Model::findById($_REQUEST['pl_weilandt']['uid']);
+		echo $this->view->render( 'backend/device/edit.html',
+			array(
+				'device' => $device
+			) );
 	}
 	/**
 	 *
 	 */
 	public function addAction() {
-		global $wpdb;
+
 		$name = '';
 		$success = false;
 		if ( array_key_exists( 'pl_weilandt_device', $_REQUEST ) ) {

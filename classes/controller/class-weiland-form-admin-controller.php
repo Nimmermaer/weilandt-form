@@ -35,12 +35,12 @@ class Weiland_Form_Admin_Controller extends Weiland_Form_Controller {
 	 *  dashboardAction
 	 */
 	public function dashboardAction() {
-		if ( class_exists( WPFlashMessages ) ) {
+		if ( class_exists( 'WPFlashMessages' ) ) {
 			WPFlashMessages::show_flash_messages();
 		}
 
 		$devices = Weiland_Form_Device_Model::findAll();
-		echo $this->view->render( 'admin-dashboard.html',
+		echo $this->view->render( 'backend/admin-dashboard.html',
 			array(
 				'devices' => $devices,
 				'siteUrl' => get_site_url()
