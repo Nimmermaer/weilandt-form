@@ -49,14 +49,19 @@ class Weiland_Form_Plugin_Manager {
 		if ( stristr( $className, 'controller' ) !== FALSE ) {
 			$className = mb_strtolower( $className );
 			$className = str_replace( '_', '-', $className );
+			if(file_exists( WEILANDT_PATH . "/classes/controller/class-" . $className . ".php"))
 			require_once( WEILANDT_PATH . "/classes/controller/class-" . $className . ".php" );
-		} elseif ( stristr( $className, 'model' ) !== FALSE ) {
+		}
+		if ( stristr( $className, 'model' ) !== FALSE ) {
 			$className = mb_strtolower( $className );
 			$className = str_replace( '_', '-', $className );
+			if(file_exists( WEILANDT_PATH . "/classes/domain/model/class-" . $className . ".php"))
 			require_once( WEILANDT_PATH . "/classes/domain/model/class-" . $className . ".php" );
-		} elseif ( stristr( $className, 'weiland' ) !== FALSE ) {
+		}
+		if ( stristr( $className, 'weiland' ) !== FALSE ) {
 			$className = mb_strtolower( $className );
 			$className = str_replace( '_', '-', $className );
+			if(file_exists( WEILANDT_PATH . "/classes/class-" . $className . ".php"))
 			require_once( WEILANDT_PATH . "/classes/class-" . $className . ".php" );
 		}
 	}
