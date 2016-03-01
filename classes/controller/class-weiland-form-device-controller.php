@@ -71,11 +71,14 @@ class Weiland_Form_Device_Controller extends Weiland_Form_Admin_Controller {
 			               ) );
 			$wpdb->insert_id;
 			$message = 'funktioniert';
+			if(function_exists('queue_flash_message'))
 			queue_flash_message( $message, $class = 'updated' );
 		} else {
 			$message = 'funktioniert nicht';
+			if(function_exists('queue_flash_message'))
 			queue_flash_message( $message, $class = 'error' );
 		}
+
 		$this->redirect(
 			'dashboard',
 			'admin'
