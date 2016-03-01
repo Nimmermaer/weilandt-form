@@ -1,0 +1,16 @@
+{% include 'backend/partials/header.html' %}
+<form method="post" action='{{ siteUrl }}/wp-admin/admin.php?page=Weilandt&pl_weilandt[controller]=device&pl_weilandt[action]=new' id="form_2">
+    <button type="submit">add new</button>
+</form>
+<ul>
+    {% for device in devices %}
+    <li>
+        <form id="editForm">
+          {{ device.name }} <a href="{{ siteUrl }}/wp-admin/admin.php?page=Weilandt&pl_weilandt[controller]=device&pl_weilandt[action]=edit&pl_weilandt[uid]={{device.id}}" type="submit">edit</a>
+                 <a href="{{ siteUrl }}/wp-admin/admin.php?page=Weilandt&pl_weilandt[controller]=device&pl_weilandt[action]=delete&pl_weilandt[uid]={{device.id}}" type="submit">deleted</a>
+        </form>
+       </li>
+    {% endfor %}
+</ul>
+
+{% include 'backend/partials/footer.html' %}
