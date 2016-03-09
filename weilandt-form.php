@@ -22,6 +22,7 @@
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       weilandt-form
  * Domain Path:       /languages
+ * Depends: Countries Database
  */
 
 // If this file is called directly, abort.
@@ -42,6 +43,23 @@ register_activation_hook( __FILE__,
 		$pluginManager = new Weiland_Form_Plugin_Manager();
 		$pluginManager->activate();
 	} );
+
+
+add_shortcode('weilandt_frontend', function($atts) {
+	require_once plugin_dir_path( __FILE__ ) . 'classes/class-weiland-form-plugin-manager.php';
+	$pluginManager = new Weiland_Form_Plugin_Manager();
+	$pluginManager->activateFrontend($atts);
+});
+
+add_action( 'admin_post', function() {
+	var_dump($_REQUEST);
+die('dd');
+
+});
+add_action( 'admin_post_contact_form', function() {
+die('tt');
+
+});
 
 $runWeilandtForm = function () {
 	require_once plugin_dir_path( __FILE__ ) . 'classes/class-weiland-form-plugin-manager.php';

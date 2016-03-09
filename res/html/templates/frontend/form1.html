@@ -1,0 +1,89 @@
+
+
+<form method="post"
+      action='{{admin}}'
+      id="form_2">
+    <div class="form-group">
+        <label for="company">Firmenname</label>
+        <input type="text" class="form-control" id="company" name="form1[company]" >
+
+        <label for="street">Straße Hausnummer</label>
+        <input type="text" class="form-control" id="street" name="form1[company]"  >
+
+        <label for="zip">Postleitzahl</label>
+        <input type="text" class="form-control"  id="zip" name="form1[zip]"  >
+
+        <label for="city">Ort</label>
+        <input type="text" class="form-control"  id="city" name="form1[city]"  >
+        <div class="form-group">
+            <label for="country">Land:</label>
+            <select class="form-control" id="country" name="form1[country]">
+                {% for country in countries %}
+                <option value="{{country.de}}">{{country.de}}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <label for="email">Email</label>
+        <div class="form-group input-group">
+
+            <span class="input-group-addon">@</span>
+            <input type="text" class="form-control" id="email" name="form1[email]" placeholder="Username">
+        </div>
+        <label for="phone">Telefon</label>
+        <input type="text" class="form-control"  id="phone" name="form1[phone]"  >
+    </div>
+   <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text"class="form-control" id="name"  name="form1[firstName]">
+        <label for="personStreet">Straße Hausnummer</label>
+        <input type="text"class="form-control" id="personStreet"  name="form1[personStreet]">
+        <label for="personZip">Postleitzahl:</label>
+        <input type="text"class="form-control" id="personZip"  name="form1[personZip]">
+        <label for="personCity">Ort</label>
+        <input type="text"class="form-control" id="personCity"  name="form1[personCity]">
+        <div class="form-group">
+            <label for="personCountry">Land:</label>
+            <select class="form-control" id="personCountry" name="form1[personCountry]">
+                {% for country in countries %}
+                <option value="{{country.de}}">{{country.de}}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-1">
+                    <label for="count">Nr.</label>
+                    <span id="count" data-count="1">1</span>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="device">Gerätebezeichnung:</label>
+                        <select class="form-control" id="device" name="form1[device][device]">
+                            {% for device in devices %}
+                            <option value="{{device.name}}">{{device.name}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <label for="serial">Seriennummer</label>
+                  <div class="form-group input-group">
+                                            <span class="input-group-addon"><i class="fa fa-phone"></i>
+                                            </span>
+                        <input type="text" class="form-control" id='serial' name="form1[device][serial]" placeholder="ID">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Text area</label>
+                        <textarea class="form-control" rows="3" name="form1[device][message]"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

@@ -41,6 +41,11 @@ class Weiland_Form_Plugin_Manager {
 		$this->weilandt_form_db();
 		$this->weilandt_form_update_db_check();
 	}
+	public function activateFrontend($attr) {
+		$frontend = new Weiland_Form_Frontend_Controller();
+		$frontend->dispatchForm($attr);
+
+	}
 
 	/**
 	 * @param $className
@@ -196,11 +201,6 @@ class Weiland_Form_Plugin_Manager {
 		}
 	}
 
-	function weilandt_register_post_type() {
-		if(class_exists('Weiland_Form_Post_Type_Model')){
-
-		}
-	}
 
 	/**
 	 *
