@@ -196,6 +196,12 @@ class Weiland_Form_Plugin_Manager {
 		}
 	}
 
+	function weilandt_register_post_type() {
+		if(class_exists('Weiland_Form_Post_Type_Model')){
+
+		}
+	}
+
 	/**
 	 *
 	 */
