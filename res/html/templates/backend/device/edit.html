@@ -1,5 +1,44 @@
-<form >
+<div id="page-wrapper">
 
-    <input value="{{device.name}}" name="device[name]"/></form>
-        <button type="submit">Save</button>
-</form>
+    <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">
+                    Forms
+                </h1>
+                <ol class="breadcrumb">
+                    <li>
+                        <i class="fa fa-dashboard"></i>  <a href="admin.php?page=Weilandt">Dashboard</a>
+                    </li>
+                    <li class="active">
+                        <i class="fa fa-edit"></i> Forms
+                    </li>
+                </ol>
+            </div>
+        </div>
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-lg-6">
+              <h1>Input Groups</h1>
+
+                <form role="form" method="post" action='{{ siteUrl }}/wp-admin/admin.php?page=Weilandt&pl_weilandt[controller]=device&pl_weilandt[action]=update' id="form">
+
+                <div class="form-group input-group">
+                        <span class="input-group-addon"><i class="fa fa-tablet "></i></span>
+                          <input type="hidden" name="device[id]" value="{{device.id}}">
+                          <input class="form-control" value="{{device.name}}" name="device[name]"/>
+                    </div>
+                    <button class="btn btn-default" type="submit">Save</button>
+                 </form>
+
+
+            </div>
+        </div>
+        <!-- /.row -->
+
+    </div>
+    <!-- /.container-fluid -->
+
+</div>

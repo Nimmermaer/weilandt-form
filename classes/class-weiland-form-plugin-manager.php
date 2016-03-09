@@ -72,7 +72,7 @@ class Weiland_Form_Plugin_Manager {
 	public function run() {
 
 		spl_autoload_register( array( &$this, 'autoload' ) );
-		add_action( 'admin_head', array( &$this, 'integrate_admin_styles' ) );
+		add_action( 'admin_enqueue_scripts', array( &$this, 'integrate_admin_styles' ) );
 		add_action( 'admin_menu',
 		            array( &$this, 'build_menu' ) );
 	}
@@ -217,12 +217,21 @@ class Weiland_Form_Plugin_Manager {
 	 *
 	 */
 	function integrate_admin_styles() {
-
-		$src    = "/wp-content/plugins/weilandt-form/res/lib/bootstrap/bootstrap.min.css";
+		$src['morris']    = "/wp-content/plugins/weilandt-form/res/lib/admin-theme/css/plugins/morris.css";
+		$src['admin']    = "/wp-content/plugins/weilandt-form/res/lib/admin-theme/css/sb-admin.css";
+		$src['bootstrap']    = "/wp-content/plugins/weilandt-form/res/lib/bootstrap/css/bootstrap.min.css";
+		$src['fonts']    = "/wp-content/plugins/weilandt-form/res/lib/admin-theme/font-awesome/css/font-awesome.css";
+		$src['styles']    = "/wp-content/plugins/weilandt-form/res/css/admin/styles.css";
 		$handle = "weilandt_form_admin";
-		wp_register_script( $handle, $src );
-		wp_enqueue_style( $handle, $src, array(), FALSE, FALSE );
-
+		foreach($src as $key => $source){
+			wp_enqueue_style( $handle.'-'.$key,$source, array(), FALSE, 'all' );
+		}
+		$js['bootstrap']    = "/wp-content/plugins/weilandt-form/res/lib/bootstrap/js/bootstrap.min.js";
+		$js['styles']    = "/wp-content/plugins/weilandt-form/res/js/admin/scripts.js";
+		$handle = "weilandt_form_admin_js";
+		foreach($js as $key => $jssource){
+			wp_enqueue_script(  $handle.'-'.$key,$jssource, array(), FALSE,true );
+		}
 	}
 
 }
