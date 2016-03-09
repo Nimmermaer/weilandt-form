@@ -1,6 +1,4 @@
 {% include 'backend/partials/header.html' %}
-
-
 <div id="page-wrapper">
 
     <div class="container-fluid">
@@ -117,9 +115,81 @@
                 </div>
             </div>
         </div>
-        <!-- /.row -->
+        <div class="row">
+            <div class="col-lg-3 col-md-6">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <i class="fa fa-comments fa-5x"></i>
+                            </div>
+                            <div class="col-xs-9 text-right">
+                                 <div class="huge"> {{ devices|length }} </div>
 
-
+                                 <div>Geräte für Formular 1</div>
+                            </div>
+                        </div>
+                    </div>
+                   <p>
+                       [weilandt_frontend formular=1]
+                   </p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="panel panel-green">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <i class="fa fa-tasks fa-5x"></i>
+                            </div>
+                            <div class="col-xs-9 text-right">
+                                <div class="huge"> {{ devices|length }} </div>
+                                <div>Formular 2</div>
+                            </div>
+                        </div>
+                    </div>
+                    <p>
+                        [weilandt_frontend formular=2]
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="panel panel-yellow">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <i class="fa fa-shopping-cart fa-5x"></i>
+                            </div>
+                            <div class="col-xs-9 text-right">
+                                <div class="huge"> {{ devices|length }} </div>
+                                <div>Formular 3</div>
+                            </div>
+                        </div>
+                    </div>
+                    <p>
+                        [weilandt_frontend formular=3]
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="panel panel-red">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <i class="fa fa-support fa-5x"></i>
+                            </div>
+                            <div class="col-xs-9 text-right">
+                                <div class="huge"> {{ devices|length }} </div>
+                                <div>Formular 4</div>
+                            </div>
+                        </div>
+                    </div>
+                    <p>
+                        [weilandt_frontend formular=4]
+                    </p>
+                </div>
+            </div>
+        </div>
         <!-- /.row -->
 
 
