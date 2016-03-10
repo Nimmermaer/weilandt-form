@@ -29,129 +29,149 @@
 /**
  * Class Weiland_Form_Admin_Controller
  */
-class Weiland_Form_Device_Controller extends Weiland_Form_Admin_Controller
-{
+class Weiland_Form_Device_Controller extends Weiland_Form_Admin_Controller {
 
 
-    public function listAction()
-    {
-        global $wpdb;
 
-        echo $this->view->render('backend/device/list.html', array(
-                'siteUrl' => get_site_url()
-            ));
-    }
+	/**
+	 *  list devices
+	 */
+	public function listAction() {
+		global $wpdb;
 
-    public function showAction()
-    {
-        echo $this->view->render('backend/device/show.html', array(
-                'siteUrl' => get_site_url()
-            ));
-    }
+		echo $this->view->render( 'backend/device/list.html', array(
+			'siteUrl' => get_site_url(),
+			'forms' => $GLOBALS['Forms'] ,
+		) );
+	}
 
-    public function editAction()
-    {
-        $device = Weiland_Form_Device_Model::findById($_REQUEST['pl_weilandt']['uid']);
-        echo $this->view->render('backend/device/edit.html', array(
-                'device' => $device
-            ));
-    }
+	/**
+	 * show device
+	 */
+	public function showAction() {
+		echo $this->view->render( 'backend/device/show.html', array(
+			'siteUrl' => get_site_url(),
+			'forms' => $GLOBALS['Forms']
+		) );
+	}
 
-    public function newAction()
-    {
-        echo $this->view->render('backend/device/new.html');
-    }
+	/**
+	 * edit device
+	 */
+	public function editAction() {
+		$device = Weiland_Form_Device_Model::findById( $_REQUEST['pl_weilandt']['uid'] );
+		echo $this->view->render( 'backend/device/edit.html', array(
+			'device' => $device,
+			'forms' => $GLOBALS['Forms']
+		) );
+	}
 
-    /**
-     *
-     */
-    public function addAction()
-    {
-        global $wpdb;
-        $name    = '';
-        $success = false;
-        if (array_key_exists('pl_weilandt_device', $_REQUEST)) {
-            $name = $_REQUEST['pl_weilandt_device']['name'];
-        }
+	/**
+	 * render a new device form
+	 */
+	public function newAction() {
+		echo $this->view->render( 'backend/device/new.html', array(
+			'forms' => $GLOBALS['Forms'],
+			'siteUrl' => get_site_url(),
+		) );
+	}
 
-        if ($name) {
-            $wpdb->insert($wpdb->prefix . 'pl_weilandt_form_device', array(
-                    'name' => $name
-                ));
-            $wpdb->insert_id;
-            $message = 'funktioniert';
-            if (function_exists('queue_flash_message')) {
-                queue_flash_message($message, $class = 'updated');
-            }
-        } else {
-            $message = 'funktioniert nicht';
-            if (function_exists('queue_flash_message')) {
-                queue_flash_message($message, $class = 'error');
-            }
-        }
+	/**
+	 * add a device
+	 */
+	public function addAction() {
+		global $wpdb;
+		$name                           = '';
+		$pl_weilandt_form_type_id = '';
+		$success                        = false;
+		if ( array_key_exists( 'pl_weilandt_device', $_REQUEST ) ) {
+			$name                           = $_REQUEST['pl_weilandt_device']['name'];
+			$pl_weilandt_form_type_id = $_REQUEST['pl_weilandt_device']['pl_weilandt_form_type_id'];
+		}
 
-        $this->redirect('dashboard', 'admin');
-    }
+		if ( $name ) {
+			$wpdb->insert( $wpdb->prefix . 'pl_weilandt_form_device', array(
+				'name'                           => $name,
+				'pl_weilandt_form_type_id' => $pl_weilandt_form_type_id
+			) );
+			$wpdb->insert_id;
+			$message = 'funktioniert';
+			if ( function_exists( 'queue_flash_message' ) ) {
+				queue_flash_message( $message, $class = 'updated' );
+			}
+		} else {
+			$message = 'funktioniert nicht';
+			if ( function_exists( 'queue_flash_message' ) ) {
+				queue_flash_message( $message, $class = 'error' );
+			}
+		}
 
-    public function updateAction()
-    {
-        global $wpdb;
-        $name    = '';
-        $success = false;
+		$this->redirect( 'dashboard', 'admin' );
+	}
 
-        if (array_key_exists('device', $_REQUEST)) {
-            $name = $_REQUEST['device']['name'];
-            $id   = $_REQUEST['device']['id'];
-        }
+	/**
+	 * update an old device
+	 */
+	public function updateAction() {
+		global $wpdb;
+		$name                           = '';
+		$pl_weilandt_form_type_id = '';
+		$success                        = false;
 
-        if ($name) {
-            $wpdb->update($wpdb->prefix . 'pl_weilandt_form_device', array(
-                    'name' => $name
-                ), array(
-                    'id' => $id
-                ));
-            $wpdb->insert_id;
-            $message = 'funktioniert';
-            if (function_exists('queue_flash_message')) {
-                queue_flash_message($message, $class = 'updated');
-            }
-        } else {
-            $message = 'funktioniert nicht';
-            if (function_exists('queue_flash_message')) {
-                queue_flash_message($message, $class = 'error');
-            }
-        }
+		if ( array_key_exists( 'device', $_REQUEST ) ) {
+			$name                           = $_REQUEST['device']['name'];
+			$pl_weilandt_form_type_id =      $_REQUEST['device']['pl_weilandt_form_type_id'];
+			$id                             = $_REQUEST['device']['id'];
+		}
+		if ( $name ) {
+			$wpdb->update( $wpdb->prefix . 'pl_weilandt_form_device', array(
+				'name'                           => $name,
+				'pl_weilandt_form_type_id' => $pl_weilandt_form_type_id
+			), array(
+				'id' => $id
+			) );
+			$wpdb->insert_id;
+			$message = 'funktioniert';
+			if ( function_exists( 'queue_flash_message' ) ) {
+				queue_flash_message( $message, $class = 'updated' );
+			}
+		} else {
+			$message = 'funktioniert nicht';
+			if ( function_exists( 'queue_flash_message' ) ) {
+				queue_flash_message( $message, $class = 'error' );
+			}
+		}
 
-        $this->redirect('dashboard', 'admin');
-    }
+		$this->redirect( 'dashboard', 'admin' );
+	}
 
-    public function deleteAction()
-    {
-        global $wpdb;
-        $name    = '';
-        $success = false;
+	/**
+	 * delete device
+	 */
+	public function deleteAction() {
+		global $wpdb;
 
-        if (array_key_exists('pl_weilandt_device', $_REQUEST)) {
-            $id = $_REQUEST['pl_weilandt_device']['uid'];
-        }
+		if ( array_key_exists( 'pl_weilandt_device', $_REQUEST ) ) {
+			$id = $_REQUEST['pl_weilandt_device']['uid'];
+		}
 
-        if ($id) {
-            $wpdb->delete($wpdb->prefix . 'pl_weilandt_form_device', array(
-                    'id' => $id
-                ));
+		if ( $id ) {
+			$wpdb->delete( $wpdb->prefix . 'pl_weilandt_form_device', array(
+				'id' => $id
+			) );
 
-            $message = 'funktioniert';
-            if (function_exists('queue_flash_message')) {
-                queue_flash_message($message, $class = 'updated');
-            }
-        } else {
-            $message = 'funktioniert nicht';
-            if (function_exists('queue_flash_message')) {
-                queue_flash_message($message, $class = 'error');
-            }
-        }
+			$message = 'funktioniert';
+			if ( function_exists( 'queue_flash_message' ) ) {
+				queue_flash_message( $message, $class = 'updated' );
+			}
+		} else {
+			$message = 'funktioniert nicht';
+			if ( function_exists( 'queue_flash_message' ) ) {
+				queue_flash_message( $message, $class = 'error' );
+			}
+		}
 
-        $this->redirect('dashboard', 'admin');
-    }
+		$this->redirect( 'dashboard', 'admin' );
+	}
 
 }
