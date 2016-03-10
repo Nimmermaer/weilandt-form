@@ -2,18 +2,20 @@
  * Created by Michael on 08.03.2016.
  */
 jQuery( document ).ready(function() {
+
+    jQuery('[data-toggle="tooltip"]').tooltip();
+
+    function showTooltip(elem, msg) {
+        elem.setAttribute('class', 'btn tooltipped tooltipped-s');
+        elem.setAttribute('aria-label', msg);
+    }
+
     var clipboard = new Clipboard('.form-btn');
 
     clipboard.on('success', function(e) {
-        console.info('Action:', e.action);
-        console.info('Text:', e.text);
-        console.info('Trigger:', e.trigger);
+           e.clearSelection();
 
-        e.clearSelection();
     });
 
-    clipboard.on('error', function(e) {
-        console.error('Action:', e.action);
-        console.error('Trigger:', e.trigger);
-    });
+
 });

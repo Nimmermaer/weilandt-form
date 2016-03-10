@@ -144,20 +144,20 @@
                             </div>
                         </div>
                     </div>
-                    <p>
-                        <!-- Target -->
+
+                    <!-- Target -->
 
                     <div class="input-group">
-                        <input disabled="disabled" id="form-{{key}}" class="form-control" value=" [weilandt_frontend formular={{key}}]"/>
+                        <input disabled="disabled" id="form-{{key}}" class="form-control"
+                               value=" [weilandt_frontend formular={{key}}]"/>
 
-                <span class="input-group-btn">
-                    <button class="btn btn-secondary form-btn" data-clipboard-target="#form-{{key}}" type="button"><i
-                        class="fa fa-clipboard"></i></button>
+                         <span class="input-group-btn">
+                    <button class="btn btn-secondary form-btn" data-clipboard-target="#form-{{key}}" type="button" data-toggle="tooltip" title="Kopieren! Und in eine beliebige Seite einfügen."><i
+                            class="fa fa-clipboard"></i></button>
                     </span>
                     </div>
 
 
-                    </p>
                 </div>
             </div>
             {% endfor %}
