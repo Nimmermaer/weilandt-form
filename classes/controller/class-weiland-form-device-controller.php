@@ -62,7 +62,8 @@ class Weiland_Form_Device_Controller extends Weiland_Form_Admin_Controller {
 		$device = Weiland_Form_Device_Model::findById( $_REQUEST['pl_weilandt']['uid'] );
 		echo $this->view->render( 'backend/device/edit.html', array(
 			'device' => $device,
-			'forms' => $GLOBALS['Forms']
+			'forms' => $GLOBALS['Forms'],
+			'siteUrl' => get_site_url(),
 		) );
 	}
 
@@ -118,10 +119,10 @@ class Weiland_Form_Device_Controller extends Weiland_Form_Admin_Controller {
 		$pl_weilandt_form_type_id = '';
 		$success                        = false;
 
-		if ( array_key_exists( 'device', $_REQUEST ) ) {
-			$name                           = $_REQUEST['device']['name'];
-			$pl_weilandt_form_type_id =      $_REQUEST['device']['pl_weilandt_form_type_id'];
-			$id                             = $_REQUEST['device']['id'];
+		if ( array_key_exists( 'pl_weilandt_device', $_REQUEST ) ) {
+			$name                           = $_REQUEST['pl_weilandt_device']['name'];
+			$pl_weilandt_form_type_id =      $_REQUEST['pl_weilandt_device']['pl_weilandt_form_type_id'];
+			$id                             = $_REQUEST['pl_weilandt_device']['id'];
 		}
 		if ( $name ) {
 			$wpdb->update( $wpdb->prefix . 'pl_weilandt_form_device', array(
