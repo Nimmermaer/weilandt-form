@@ -20,6 +20,7 @@
         <div class="row">
             <div class="col-lg-6">
                 <h2>Devices</h2>
+
                 <form method="post"
                       action='{{ siteUrl }}/wp-admin/admin.php?page=Weilandt&pl_weilandt[controller]=device&pl_weilandt[action]=new'
                       id="form_2">
@@ -68,6 +69,7 @@
             </div>
             <div class="col-lg-6">
                 <h2>Mails</h2>
+
                 <form method="post"
                       action='{{ siteUrl }}/wp-admin/admin.php?page=Weilandt&pl_weilandt[controller]=device&pl_weilandt[action]=new'
                       id="form_2">
@@ -116,6 +118,7 @@
             </div>
         </div>
         <div class="row">
+            {% for key,form in forms %}
             <div class="col-lg-3 col-md-6">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
@@ -124,71 +127,29 @@
                                 <i class="fa fa-comments fa-5x"></i>
                             </div>
                             <div class="col-xs-9 text-right">
-                                 <div class="huge"> {{ devices|length }} </div>
+                                <div class="huge">
+                                </div>
+                                <div>
+                                    {% set count = "" %}
+                                        {% for device in devices if device.pl_weilandt_form_type_id == key %}
+                                            {% set count = loop.index %}
+                                        {% endfor %}
 
-                                 <div>Geräte für Formular 1</div>
-                            </div>
-                        </div>
-                    </div>
-                   <p>
-                       [weilandt_frontend formular=1]
-                   </p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="panel panel-green">
-                    <div class="panel-heading">
-                        <div class="row">
-                            <div class="col-xs-3">
-                                <i class="fa fa-tasks fa-5x"></i>
-                            </div>
-                            <div class="col-xs-9 text-right">
-                                <div class="huge"> {{ devices|length }} </div>
-                                <div>Formular 2</div>
+                                    {% if count == 0 %}
+                                    Aktuell keine Gerät/e für {{form}}
+                                    {% else %}
+                                    {{count}} Gerät/e für {{form}}
+                                    {% endif %}
+                                </div>
                             </div>
                         </div>
                     </div>
                     <p>
-                        [weilandt_frontend formular=2]
+                        [weilandt_frontend formular={{key}}]
                     </p>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="panel panel-yellow">
-                    <div class="panel-heading">
-                        <div class="row">
-                            <div class="col-xs-3">
-                                <i class="fa fa-shopping-cart fa-5x"></i>
-                            </div>
-                            <div class="col-xs-9 text-right">
-                                <div class="huge"> {{ devices|length }} </div>
-                                <div>Formular 3</div>
-                            </div>
-                        </div>
-                    </div>
-                    <p>
-                        [weilandt_frontend formular=3]
-                    </p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="panel panel-red">
-                    <div class="panel-heading">
-                        <div class="row">
-                            <div class="col-xs-3">
-                                <i class="fa fa-support fa-5x"></i>
-                            </div>
-                            <div class="col-xs-9 text-right">
-                                <div class="huge"> {{ devices|length }} </div>
-                                <div>Formular 4</div>
-                            </div>
-                        </div>
-                    </div>
-                    <p>
-                        [weilandt_frontend formular=4]
-                    </p>
-                </div>
-            </div>
+            {% endfor %}
         </div>
         <!-- /.row -->
 

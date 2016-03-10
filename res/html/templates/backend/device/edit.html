@@ -10,7 +10,7 @@
                 </h1>
                 <ol class="breadcrumb">
                     <li>
-                        <i class="fa fa-dashboard"></i>  <a href="admin.php?page=Weilandt">Dashboard</a>
+                        <i class="fa fa-dashboard"></i> <a href="admin.php?page=Weilandt">Dashboard</a>
                     </li>
                     <li class="active">
                         <i class="fa fa-edit"></i> Forms
@@ -21,17 +21,28 @@
         <!-- /.row -->
         <div class="row">
             <div class="col-lg-6">
-              <h1>Input Groups</h1>
+                <h1>Gerät editieren</h1>
 
-                <form role="form" method="post" action='{{ siteUrl }}/wp-admin/admin.php?page=Weilandt&pl_weilandt[controller]=device&pl_weilandt[action]=update' id="form">
+                <form role="form" method="post"
+                      action='{{ siteUrl }}/wp-admin/admin.php?page=Weilandt&pl_weilandt[controller]=device&pl_weilandt[action]=update'
+                      id="form">
 
-                <div class="form-group input-group">
+                    <div class="form-group input-group">
                         <span class="input-group-addon"><i class="fa fa-tablet "></i></span>
-                          <input type="hidden" name="device[id]" value="{{device.id}}">
-                          <input class="form-control" value="{{device.name}}" name="device[name]"/>
+                        <input type="hidden" name="pl_weilandt_device[id]" value="{{device.id}}">
+                        <input class="form-control" value="{{device.name}}" name="pl_weilandt_device[name]"/>
                     </div>
+                    <select class="form-control" name="pl_weilandt_device[pl_weilandt_form_type_id]">
+                        {% for key,form in forms %}
+                        {% if key == device.pl_weilandt_form_type_id %}
+                            <option value="{{key}}" selected="selected">{{form}}</option>
+                        {% else %}
+                            <option value="{{key}}">{{form}}</option>
+                        {% endif %}
+                        {% endfor %}
+                    </select>
                     <button class="btn btn-default" type="submit">Save</button>
-                 </form>
+                </form>
 
 
             </div>
