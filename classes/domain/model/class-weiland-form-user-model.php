@@ -29,7 +29,7 @@
 /**
  * Class Weiland_Form_User_Model
  */
-class Weiland_Form_User_Model {
+class Weiland_Form_User_Model extends WP_User{
 
 	const tableName = 'pl_weilandt_form_device_user';
 
