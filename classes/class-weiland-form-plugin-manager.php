@@ -227,6 +227,7 @@ class Weiland_Form_Plugin_Manager {
 			wp_enqueue_style( $handle.'-'.$key,$source, array(), FALSE, 'all' );
 		}
 		$js['bootstrap']    = "/wp-content/plugins/weilandt-form/res/lib/bootstrap/js/bootstrap.min.js";
+		$js['clipboard']    = "/wp-content/plugins/weilandt-form/res/js/admin/clipboard.min.js";
 		$js['styles']    = "/wp-content/plugins/weilandt-form/res/js/admin/scripts.js";
 		$handle = "weilandt_form_admin_js";
 		foreach($js as $key => $jssource){

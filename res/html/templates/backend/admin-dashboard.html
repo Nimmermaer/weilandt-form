@@ -131,9 +131,9 @@
                                 </div>
                                 <div>
                                     {% set count = "" %}
-                                        {% for device in devices if device.pl_weilandt_form_type_id == key %}
-                                            {% set count = loop.index %}
-                                        {% endfor %}
+                                    {% for device in devices if device.pl_weilandt_form_type_id == key %}
+                                    {% set count = loop.index %}
+                                    {% endfor %}
 
                                     {% if count == 0 %}
                                     Aktuell keine Gerät/e für {{form}}
@@ -145,7 +145,18 @@
                         </div>
                     </div>
                     <p>
-                        [weilandt_frontend formular={{key}}]
+                        <!-- Target -->
+
+                    <div class="input-group">
+                        <input disabled="disabled" id="form-{{key}}" class="form-control" value=" [weilandt_frontend formular={{key}}]"/>
+
+                <span class="input-group-btn">
+                    <button class="btn btn-secondary form-btn" data-clipboard-target="#form-{{key}}" type="button"><i
+                        class="fa fa-clipboard"></i></button>
+                    </span>
+                    </div>
+
+
                     </p>
                 </div>
             </div>

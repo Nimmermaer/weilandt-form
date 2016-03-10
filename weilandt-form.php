@@ -22,7 +22,7 @@
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       weilandt-form
  * Domain Path:       /languages
- * Depends: Countries Database
+ * Depends: Countries Database, WP Flash Messages
  */
 
 
