@@ -25,6 +25,12 @@
  * Depends: Countries Database
  */
 
+
+/**
+ * @var array formulars
+ */
+
+
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
 	die;
@@ -36,6 +42,14 @@ if ( ! defined( 'WPINC' ) ) {
 define( 'WEILANDT_PATH', plugin_dir_path( __FILE__ ) );
 define( 'WEILANDT_URI', plugin_dir_url( __FILE__ ) );
 
+/**
+ *  Forms
+ */
+$GLOBALS['Forms'] = array(
+	'1' => 'Casio Reparaturauftrag',
+	'2' => 'M3Mobile Reparaturauftrag',
+	'3' => 'RMA Request Form',
+);
 
 register_activation_hook( __FILE__,
 	function () {
