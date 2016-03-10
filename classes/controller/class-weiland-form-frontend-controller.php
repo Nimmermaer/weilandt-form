@@ -44,6 +44,9 @@ class Weiland_Form_Frontend_Controller extends Weiland_Form_Controller
             case 2:
                 $this->form2Action();
                 break;
+            case 3:
+                $this->form3Action();
+                break;
         }
     }
 
@@ -60,10 +63,26 @@ class Weiland_Form_Frontend_Controller extends Weiland_Form_Controller
     }
     public function form2Action() {
         global $wpdb;
-        $countries = $rawResults = $wpdb->get_results( 'SELECT * FROM ' . $wpdb->prefix . 'countries' );
-        echo $this->view->render('frontend/form/form1.html', array(
-            'device' => $device
-        ));
+         $countries = $rawResults = $wpdb->get_results( 'SELECT * FROM ' . $wpdb->prefix . 'countries' );
+         $devices = $rawResults = $wpdb->get_results( 'SELECT * FROM ' . $wpdb->prefix . self::tableName );
+        esc_url( admin_url('admin-post.php'));
+        echo $this->view->render('frontend/form2.html', array(
+            'countries' => $countries,
+            'devices' => $devices,
+            'admin' => esc_url( admin_url('admin-post.php'))
+    ));
     }
+    public function form3Action() {
+        global $wpdb;
+         $countries = $rawResults = $wpdb->get_results( 'SELECT * FROM ' . $wpdb->prefix . 'countries' );
+         $devices = $rawResults = $wpdb->get_results( 'SELECT * FROM ' . $wpdb->prefix . self::tableName );
+        esc_url( admin_url('admin-post.php'));
+        echo $this->view->render('frontend/form3.html', array(
+            'countries' => $countries,
+            'devices' => $devices,
+            'admin' => esc_url( admin_url('admin-post.php'))
+    ));
+    }
+
 
 }
