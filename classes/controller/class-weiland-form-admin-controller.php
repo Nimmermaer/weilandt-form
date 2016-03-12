@@ -43,7 +43,8 @@ class Weiland_Form_Admin_Controller extends Weiland_Form_Controller {
 		echo $this->view->render( 'backend/admin-dashboard.html',
 			array(
 				'devices' => $devices,
-				'siteUrl' => get_site_url()
+				'siteUrl' => get_site_url(),
+				'forms' => $GLOBALS['Forms']
 			) );
 
 	}

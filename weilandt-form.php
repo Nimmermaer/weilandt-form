@@ -66,10 +66,10 @@ add_shortcode('weilandt_frontend', function($atts) {
 });
 
 add_action( 'admin_post', function() {
-	var_dump($_REQUEST);
-die('dd');
-
+	$frontend = new Weiland_Form_Frontend_Controller();
+	$frontend->decideAction($_REQUEST);
 });
+
 add_action( 'admin_post_contact_form', function() {
 die('tt');
 
