@@ -27,12 +27,12 @@
 
                 <div class="form-group input-group">
                         <span class="input-group-addon"><i class="fa fa-tablet "></i></span>
-                        <input class="form-control" value="Bitte Gerätenamen eingeben" name="pl_weilandt_device[name]"/>
+                        <input class="form-control" value="Bitte Gerätenamen eingeben" name="pl_weilandt_form[device][name]"/>
 
                     </div>
-                    <select class="form-control" name="pl_weilandt_device[pl_weilandt_form_type_id]">
+                    <select class="form-control" name="pl_weilandt_form[device][form_id]">
                         {% for key,form in forms %}
-                        {% if key == device.pl_weilandt_form_type_id %}
+                        {% if key == device.form_id %}
                         <option value="{{key}}" selected="selected">{{form}}</option>
                         {% else %}
                         <option value="{{key}}">{{form}}</option>

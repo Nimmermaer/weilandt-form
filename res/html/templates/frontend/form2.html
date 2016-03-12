@@ -62,7 +62,7 @@
                     <div class="form-group">
                         <label for="device">Gerätebezeichnung:</label>
                         <select class="form-control" id="device" name="form1[device][device]">
-                            {% for device in devices if device.pl_weilandt_form_type_id=='2'%}
+                            {% for device in devices if device.form_id=='2'%}
                             <option value="{{device.name}}">{{device.name}}</option>
                             {% endfor %}
                         </select>

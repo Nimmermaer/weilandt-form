@@ -33,9 +33,18 @@ class Weiland_Form_Controller {
 
 	protected $view = null;
 
-	public function __construct() {
+	protected $request = null;
+
+	public function __construct()
+	{
 		$this->showFlashMessages();
 
+		$this->buildRequestObject();
+
+		$this->loadView();
+	}
+
+	protected function loadView() {
 		require_once WEILANDT_PATH . 'vendor/Twig/lib/Twig/Autoloader.php';
 		Twig_Autoloader::register();
 		$loader     = new Twig_Loader_Filesystem( WEILANDT_PATH . '/res/html/templates' );
@@ -50,6 +59,18 @@ class Weiland_Form_Controller {
 		if ( class_exists( 'WPFlashMessages' ) ) {
 			WPFlashMessages::show_flash_messages();
 		}
+	}
+
+	protected function buildRequestObject() {
+		$request = new StdClass();
+		$request->arguments = array();
+
+		if(array_key_exists('pl_weilandt_form', $_REQUEST)) {
+			$rawRequestArguments = $_REQUEST['pl_weilandt_form'];
+			$request->arguments = $rawRequestArguments;
+		}
+
+		$this->request = $request;
 	}
 
 	public function redirect( $actionName, $controllerName ) {

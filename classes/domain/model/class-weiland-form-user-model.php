@@ -29,7 +29,7 @@
 /**
  * Class Weiland_Form_User_Model
  */
-class Weiland_Form_User_Model extends WP_User{
+class Weiland_Form_User_Model extends Weiland_Form_Model {
 
 	const tableName = 'pl_weilandt_form_device_user';
 
@@ -124,31 +124,16 @@ class Weiland_Form_User_Model extends WP_User{
 	public $deleted;
 
 	/**
-	 * @return array
+	 * @var \SplObjectStorage<Weiland_Form_Device_Repair_Model>
 	 */
-	public static function findAll() {
+	protected $repair_devices;
 
-		global $wpdb;
-
-		$users = array();
-
-		$rawResults = $wpdb->get_results( 'SELECT * FROM ' . $wpdb->prefix . self::tableName );
-		foreach ( $rawResults as $rawResult ) {
-			$users[] = new Weiland_Form_User_Model( $rawResult );
-		}
-
-		return $users;
-	}
-
-	/**
-	 * @param $values
-	 */
-	public function __construct( $values ) {
-		foreach ( $values as $key => $value ) {
-			if ( property_exists( $this, $key ) ) {
-				$this->$key = $value;
-			}
+	protected function initializeObject() {
+		// repair devices
+		$this->repair_devices = new \SplObjectStorage();
+		$repair_devices = Weiland_Form_Device_Repair_Model::findByUser($this);
+		foreach($repair_devices as $repair_device) {
+			$this->repair_devices->attach($repair_device);
 		}
 	}
-
 }

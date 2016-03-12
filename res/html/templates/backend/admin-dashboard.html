@@ -1,7 +1,7 @@
 {% include 'backend/partials/header.html' %}
 <div id="page-wrapper">
 
-    <div class="container-fluid">
+    <div class="container-flid">
         <!-- Page Heading -->
         <div class="row">
             <div class="col-lg-12">
@@ -44,19 +44,20 @@
 
                             <td>
 
-                                {{ device.name }}
+                                {{ device.Name }}
+                                {{ device.FormId }}
                             </td>
                             <td>
                                 <form id="editForm">
                                     <a class="btn btn-info"
-                                       href="{{ siteUrl }}/wp-admin/admin.php?page=Weilandt&pl_weilandt[controller]=device&pl_weilandt[action]=edit&pl_weilandt[uid]={{device.id}}"
+                                       href="{{ siteUrl }}/wp-admin/admin.php?page=Weilandt&pl_weilandt[controller]=device&pl_weilandt[action]=edit&pl_weilandt_form[device][id]={{device.id}}"
                                        type="submit">edit</a>
                                 </form>
                             </td>
                             <td>
                                 <form id="deleteForm">
                                     <a class="btn btn-danger"
-                                       href="{{ siteUrl }}/wp-admin/admin.php?page=Weilandt&pl_weilandt[controller]=device&pl_weilandt[action]=delete&pl_weilandt_device[uid]={{device.id}}"
+                                       href="{{ siteUrl }}/wp-admin/admin.php?page=Weilandt&pl_weilandt[controller]=device&pl_weilandt[action]=delete&pl_weilandt_form[device][id]={{device.id}}"
                                        type="submit">deleted</a>
                                 </form>
                             </td>
@@ -71,7 +72,7 @@
                 <h2>Mails</h2>
 
                 <form method="post"
-                      action='{{ siteUrl }}/wp-admin/admin.php?page=Weilandt&pl_weilandt[controller]=device&pl_weilandt[action]=new'
+                      action='{{ siteUrl }}/wp-admin/admin.php?page=Weilandt&pl_weilandt[controller]=device&pl_weilandt_form[device][action]=new'
                       id="form_2">
                     <button class="btn btn-success" type="submit">add new</button>
                 </form>
@@ -80,32 +81,48 @@
                     <table class="table table-bordered table-hover table-striped">
                         <thead>
                         <tr>
-                            <th>Device Name</th>
+                            <th>Name</th>
+                            <th>Firma</th>
+                            <th>Mail</th>
+                            <th>Show</th>
                             <th>edit</th>
                             <th>delete</th>
-
                         </tr>
                         </thead>
                         <tbody>
-
-                        {% for device in devices %}
+                        {{dump(mails)}}
+                        {% for mail in mails %}
                         <tr>
 
                             <td>
 
-                                {{ device.name }}
+                                {{ mail.contact_person }}
                             </td>
                             <td>
-                                <form id="editForm">
+
+                                {{ mail.company }}
+                            </td>
+                            <td>
+                                <a href="mailto:{{mail.mail}}">{{ mail.mail }}</a>
+                            </td>
+                            <td>
+                                <form id="showMailForm">
                                     <a class="btn btn-info"
-                                       href="{{ siteUrl }}/wp-admin/admin.php?page=Weilandt&pl_weilandt[controller]=device&pl_weilandt[action]=edit&pl_weilandt[uid]={{device.id}}"
+                                       href="{{ siteUrl }}/wp-admin/admin.php?page=Weilandt&pl_weilandt[controller]=user&pl_weilandt[action]=show&pl_weilandt_form[user][id]={{mail.id}}"
+                                       type="submit">show</a>
+                                </form>
+                            </td>
+                            <td>
+                                <form id="editMailForm">
+                                    <a class="btn btn-info"
+                                       href="{{ siteUrl }}/wp-admin/admin.php?page=Weilandt&pl_weilandt[controller]=user&pl_weilandt[action]=edit&pl_weilandt_form[user][id]={{mail.id}}"
                                        type="submit">edit</a>
                                 </form>
                             </td>
                             <td>
-                                <form id="deleteForm">
+                                <form id="deleteMailForm">
                                     <a class="btn btn-danger"
-                                       href="{{ siteUrl }}/wp-admin/admin.php?page=Weilandt&pl_weilandt[controller]=device&pl_weilandt[action]=delete&pl_weilandt[uid]={{device.id}}"
+                                       href="{{ siteUrl }}/wp-admin/admin.php?page=Weilandt&pl_weilandt[controller]=user&pl_weilandt[action]=delete&pl_weilandt_form[user][id]={{mail.id}}"
                                        type="submit">deleted</a>
                                 </form>
                             </td>
@@ -118,6 +135,7 @@
             </div>
         </div>
         <div class="row">
+
             {% for key,form in forms %}
             <div class="col-lg-3 col-md-6">
                 <div class="panel panel-primary">
@@ -131,7 +149,7 @@
                                 </div>
                                 <div>
                                     {% set count = "" %}
-                                    {% for device in devices if device.pl_weilandt_form_type_id == key %}
+                                    {% for device in devices if device.form_id == key %}
                                     {% set count = loop.index %}
                                     {% endfor %}
 
@@ -152,7 +170,8 @@
                                value=" [weilandt_frontend formular={{key}}]"/>
 
                          <span class="input-group-btn">
-                    <button class="btn btn-secondary form-btn" data-clipboard-target="#form-{{key}}" type="button" data-toggle="tooltip" title="Kopieren! Und in eine beliebige Seite einfügen."><i
+                    <button class="btn btn-secondary form-btn" data-clipboard-target="#form-{{key}}" type="button"
+                            data-toggle="tooltip" title="Kopieren! Und in eine beliebige Seite einfügen."><i
                             class="fa fa-clipboard"></i></button>
                     </span>
                     </div>
@@ -168,7 +187,7 @@
         <!-- /.row -->
 
     </div>
-    <!-- /.container-fluid -->
+    <!-- /.container-flid -->
 
 </div>
 {% include 'backend/partials/footer.html' %}

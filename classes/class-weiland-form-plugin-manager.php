@@ -129,7 +129,7 @@ class Weiland_Form_Plugin_Manager {
 		$sql2 = 'CREATE TABLE  IF NOT EXISTS  ' . $pl_weilandt_form_device . '(
   				 id INT NOT NULL AUTO_INCREMENT,
                 name TEXT NULL,
-                pl_weilandt_form_type_id INT NOT NULL,
+                form_id INT NOT NULL,
                 PRIMARY KEY (id)
   					)' . $charset_collate . ';';
 		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );

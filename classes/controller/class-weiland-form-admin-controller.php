@@ -40,11 +40,17 @@ class Weiland_Form_Admin_Controller extends Weiland_Form_Controller {
 		}
 
 		$devices = Weiland_Form_Device_Model::findAll();
+		$mails = Weiland_Form_User_Model::findAll();
+		$forms = $GLOBALS['Forms'];
+		foreach($forms as $key => $value) {
+			$forms[$key]['devices'] = Weiland_Form_Device_Model::findByFormId($value['id']);
+		}
 		echo $this->view->render( 'backend/admin-dashboard.html',
 			array(
 				'devices' => $devices,
 				'siteUrl' => get_site_url(),
-				'forms' => $GLOBALS['Forms']
+				'forms' => $GLOBALS['Forms'],
+				'mails' => $mails,
 			) );
 
 	}

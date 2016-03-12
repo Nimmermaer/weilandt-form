@@ -28,7 +28,7 @@
         <div class="form-group input-group">
 
             <span class="input-group-addon">@</span>
-            <input type="text" class="form-control" id="email" name="form1[email]" placeholder="Username">
+            <input type="text" class="form-control" id="email" name="form1[mail]" placeholder="Username">
         </div>
         <label for="phone">Telefon</label>
         <input type="text" class="form-control" id="phone" name="form1[phone]">
@@ -63,8 +63,8 @@
                     <div class="form-group">
                         <label for="device">Gerätebezeichnung:</label>
                         <select class="form-control" id="device" name="form1[device][device]">
-                            {% for device in devices if device.pl_weilandt_form_type_id=='1'%}
-                            <option value="{{device.name}}">{{device.name}}</option>
+                            {% for device in devices %}
+                                    <option value="{{device.id}}">{{device.name}}</option>
                             {% endfor %}
                         </select>
                     </div>

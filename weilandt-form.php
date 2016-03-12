@@ -46,9 +46,18 @@ define( 'WEILANDT_URI', plugin_dir_url( __FILE__ ) );
  *  Forms
  */
 $GLOBALS['Forms'] = array(
-	'1' => 'Casio Reparaturauftrag',
-	'2' => 'M3Mobile Reparaturauftrag',
-	'3' => 'RMA Request Form',
+	array(
+		'id' => '1',
+		'name' => 'Casio Reparaturauftrag'
+	),
+	array(
+		'id' => '2',
+		'name' => 'M3Mobile Reparaturauftrag'
+	),
+    array(
+	    'id' => '3',
+	    'name' => 'RMA Request Form'
+    )
 );
 
 register_activation_hook( __FILE__,

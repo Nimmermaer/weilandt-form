@@ -29,14 +29,9 @@
 /**
  * Class Weiland_Form_Device_Model
  */
-class Weiland_Form_Device_Model {
+class Weiland_Form_Device_Model extends Weiland_Form_Model {
 
 	const tableName = 'pl_weilandt_form_device';
-
-	/**
-	 * @var int
-	 */
-	public $id = 0;
 
 	/**
 	 * @var string
@@ -45,21 +40,7 @@ class Weiland_Form_Device_Model {
 	/**
 	 * @var int
 	 */
-	public $pl_weilandt_form_type_id = 0;
-
-	/**
-	 * @return int
-	 */
-	public function getId() {
-		return $this->id;
-	}
-
-	/**
-	 * @param int $id
-	 */
-	public function setId( $id ) {
-		$this->id = $id;
-	}
+	public $formId = 0;
 
 	/**
 	 * @return string
@@ -78,85 +59,15 @@ class Weiland_Form_Device_Model {
 	/**
 	 * @return int
 	 */
-	public function getPlWeilandtFormDeviceRepair() {
-		return $this->pl_weilandt_form_type_id;
+	public function getFormId() {
+		return $this->formId;
 	}
 
 	/**
-	 * @param int $pl_weilandt_form_type_id
+	 * @param int $formId
 	 */
-	public function setPlWeilandtFormDeviceRepair( $pl_weilandt_form_type_id ) {
-		$this->pl_weilandt_form_type_id = $pl_weilandt_form_type_id;
+	public function setFormId( $formId ) {
+		$this->formId = $formId;
 	}
 
-
-	/**
-	 * @return array
-	 */
-	public static function findAll() {
-
-		global $wpdb;
-
-		$devices = array();
-
-		$rawResults = $wpdb->get_results( 'SELECT * FROM ' . $wpdb->prefix . self::tableName );
-		foreach ( $rawResults as $rawResult ) {
-			$devices[] = new Weiland_Form_Device_Model( $rawResult );
-		}
-
-		return $devices;
-	}
-
-	/**
-	 * @param $id
-	 *
-	 * @return Weiland_Form_Device_Model
-	 */
-	public static function findById( $id ) {
-
-		global $wpdb;
-
-		$devices   = array();
-		$rawResult = $wpdb->get_results( 'SELECT * FROM ' . $wpdb->prefix . self::tableName . ' WHERE id=' . $id );
-		$device    = new Weiland_Form_Device_Model( $rawResult[0] );
-
-		return $device;
-	}
-
-	/**
-	 * @param $id
-	 * @param $name
-	 * @param $pl_weilandt_form_type_id
-	 */
-	public static function update( $id, $name, $pl_weilandt_form_type_id ) {
-		global $wpdb;
-		$wpdb->update(
-			$wpdb->prefix . self::tableName,
-			array(
-				'name'                           => $name,
-				'pl_weilandt_form_type_id' => $pl_weilandt_form_type_id
-			),
-			array( 'id' => $id )
-		);
-	}
-
-	/**
-	 * @param $values
-	 */
-	public function __construct( $values ) {
-		if ( count( $values ) > 1 ) {
-			foreach ( $values as $key => $value ) {
-				if ( property_exists( $this, $key ) ) {
-					$this->$key = $value;
-				}
-			}
-		} else {
-			$this->id   = $values->id;
-			$this->name = $values->name;
-			if ( property_exists( $values, 'pl_weilandt_form_type_id' ) ) {
-				$this->pl_weilandt_form_type_id = $values->pl_weilandt_form_type_id;
-			}
-
-		}
-	}
 }
