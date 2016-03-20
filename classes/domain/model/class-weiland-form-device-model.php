@@ -34,9 +34,15 @@ class Weiland_Form_Device_Model extends Weiland_Form_Model {
 	const tableName = 'pl_weilandt_form_device';
 
 	/**
+	 * @var int
+	 */
+	public $id;
+
+	/**
 	 * @var string
 	 */
 	public $name = '';
+
 	/**
 	 * @var int
 	 */
@@ -69,5 +75,21 @@ class Weiland_Form_Device_Model extends Weiland_Form_Model {
 	public function setFormId( $formId ) {
 		$this->formId = $formId;
 	}
+
+	/**
+	 * @return int
+	 */
+	public function getId() {
+		return $this->id;
+	}
+
+	/**
+	 * @param int $id
+	 */
+	public function setId( $id ) {
+		$this->id = $id;
+	}
+
+
 
 }

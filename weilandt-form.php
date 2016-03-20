@@ -65,6 +65,7 @@ register_activation_hook( __FILE__,
 		require_once plugin_dir_path( __FILE__ ) . 'classes/class-weiland-form-plugin-manager.php';
 		$pluginManager = new Weiland_Form_Plugin_Manager();
 		$pluginManager->activate();
+
 	} );
 
 
@@ -74,13 +75,18 @@ add_shortcode('weilandt_frontend', function($atts) {
 	$pluginManager->activateFrontend($atts);
 });
 
-add_action( 'admin_post', function() {
-	$frontend = new Weiland_Form_Frontend_Controller();
-	$frontend->decideAction($_REQUEST);
-});
+add_action( 'the_post',function() {
+
+
+	if(array_key_exists('form1', $_REQUEST)){
+		$frontend = new Weiland_Form_Frontend_Controller();
+		$frontend->decideAction($_REQUEST);
+	}
+
+} );
+
 
 add_action( 'admin_post_contact_form', function() {
-die('tt');
 
 });
 

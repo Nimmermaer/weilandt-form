@@ -55,13 +55,13 @@ class Weiland_Form_Model {
 	 */
 	public function __construct( $values ) {
 		foreach ( $values as $key => $value ) {
-			$propertyName = $this->underscoresToCamelCase($key);
+			$propertyName = $this->underscoresToCamelCase( $key );
 			if ( property_exists( $this, $propertyName ) ) {
 				$this->$propertyName = $value;
 			}
 		}
 
-		if(method_exists(get_class($this), 'initializeObject')) {
+		if ( method_exists( get_class( $this ), 'initializeObject' ) ) {
 			$this->initializeObject();
 		}
 	}
@@ -70,7 +70,7 @@ class Weiland_Form_Model {
 	 * @return string
 	 */
 	public function __toString() {
-		return (string)$this->id;
+		return (string) $this->id;
 	}
 
 	/**
@@ -102,11 +102,11 @@ class Weiland_Form_Model {
 		global $wpdb;
 
 		$classname = get_called_class();
-		$object = FALSE;
+		$object    = false;
 
 		$rawResult = $wpdb->get_results( 'SELECT * FROM ' . $wpdb->prefix . $classname::tableName . ' WHERE id = ' . $id );
-		if(is_array($rawResult) && count($rawResult) > 0) {
-			$object    = new Weiland_Form_Device_Model( $rawResult[0] );
+		if ( is_array( $rawResult ) && count( $rawResult ) > 0 ) {
+			$object = new Weiland_Form_Device_Model( $rawResult[0] );
 		}
 
 		return $object;
@@ -115,91 +115,100 @@ class Weiland_Form_Model {
 	/**
 	 * @return bool
 	 */
-	public  function update() {
+	public function update() {
 		global $wpdb;
 		//unset($valuesToUpdate['crdate']);
-		$id = $this->id;
-		unset($this->id);
+		$updateItem = $this->propertyMapper( $this );
+
+		$id = $updateItem['id'];
+		unset( $updateItem['id'] );
 		$wpdb->update(
 			$wpdb->prefix . $this::tableName,
-			(array)$this,
+			(array) $updateItem,
 			array( 'id' => $id )
 		);
-		return TRUE;
+
+		return true;
 	}
 
 	/**
 	 * @return bool
 	 */
-	public function delete()
-	{
+	public function delete() {
 		global $wpdb;
-			$wpdb->delete($wpdb->prefix . $this::tableName, array(
-				'id' => $this->id
-			));
-		return TRUE;
+		$wpdb->delete( $wpdb->prefix . $this::tableName, array(
+			'id' => $this->id
+		) );
+
+		return true;
 	}
 
 	/**
 	 * @return bool
 	 */
-	public function add()
-	{
+	public function add() {
 		global $wpdb;
-		$wpdb->insert($wpdb->prefix . $this::tableName,
-			(array)$this
-			);
+
+		$wpdb->insert( $wpdb->prefix . $this::tableName,
+			$this->propertyMapper($this)
+		);
 		$wpdb->insert_id;
-		return TRUE;
+
+		return true;
 	}
 
 	/**
 	 * @return bool
 	 */
-	public function persist()
-	{
-		if($this->id) {
+	public function persist() {
+		if ( $this->id ) {
 			$this->update();
 		} else {
 			$this->add();
 		}
 	}
 
-	public function updateValuesFromRequest($values){
-		foreach($values as $key => $value){
-			if($key != 'id' && property_exists($this, $key)) {
+	public function updateValuesFromRequest( $values ) {
+		foreach ( $values as $key => $value ) {
+			if ( $key != 'id' && property_exists( $this, $key ) ) {
 				$this->$key = $value;
 			}
 		}
+
 		return $this;
 	}
 
-	protected function underscoresToCamelCase($string, $capitalizeFirstCharacter = false)
-	{
+	protected function underscoresToCamelCase( $string, $capitalizeFirstCharacter = false ) {
 
-		$str = str_replace(' ', '', ucwords(str_replace('_', ' ', $string)));
+		$str = str_replace( ' ', '', ucwords( str_replace( '_', ' ', $string ) ) );
 
-		if (!$capitalizeFirstCharacter) {
-			$str[0] = strtolower($str[0]);
+		if ( ! $capitalizeFirstCharacter ) {
+			$str[0] = strtolower( $str[0] );
 		}
 
 		return $str;
 	}
 
-	public static function findByAttribute($attributeName, $attributeValue) {
+	/**
+	 * @param $attributeName
+	 * @param $attributeValue
+	 *
+	 * @return array
+	 */
+	public static function findByAttribute( $attributeName, $attributeValue ) {
 
 		global $wpdb;
 
-		$attributeName = lcfirst($attributeName);
-		$attributeName = strtolower(preg_replace('/\B([A-Z])/', '_$1', $attributeName));
+		$attributeName = lcfirst( $attributeName );
+		$attributeName = strtolower( preg_replace( '/\B([A-Z])/', '_$1', $attributeName ) );
 
 		$classname = get_called_class();
 
 		$objects = array();
 
 		$rawResults = $wpdb->get_results(
-			'SELECT * FROM ' . $wpdb->prefix . $classname::tableName .'
-			 WHERE '.$attributeName.' = '. $attributeValue
+			'SELECT * FROM ' . $wpdb->prefix . $classname::tableName . '
+			 WHERE ' . $attributeName . ' = ' . $attributeValue
 		);
 		foreach ( $rawResults as $rawResult ) {
 			$objects[] = new $classname( $rawResult );
@@ -209,14 +218,56 @@ class Weiland_Form_Model {
 
 	}
 
-	public static function __callStatic($name, $arguments) {
+	public static function findOneByAttribute( $attributeName, $attributeValue ) {
 
-		if(strrpos($name, 'findBy', -strlen($name)) !== false) {
-			$attributeName = explode('findBy', $name);
+		global $wpdb;
+
+		$attributeName = lcfirst( $attributeName );
+		$attributeName = strtolower( preg_replace( '/\B([A-Z])/', '_$1', $attributeName ) );
+
+		$classname = get_called_class();
+
+		$objects = array();
+
+		$rawResult = $wpdb->get_results(
+			'SELECT * FROM ' . $wpdb->prefix . $classname::tableName . '
+			 WHERE ' . $attributeName . ' = ' . $attributeValue . ' LIMIT 1'
+		);
+
+		return $rawResult[0];
+
+	}
+
+	/**
+	 * @param $name
+	 * @param $arguments
+	 */
+	public static function __callStatic( $name, $arguments ) {
+
+		if ( strrpos( $name, 'findBy', - strlen( $name ) ) !== false ) {
+			$attributeName = explode( 'findBy', $name );
 			$attributeName = $attributeName[1];
 
-			self::findByAttribute($attributeName, $arguments[0]);
+			self::findByAttribute( $attributeName, $arguments[0] );
 		}
 
+	}
+
+	/**
+	 * @param $object
+	 *
+	 * @return array
+	 */
+	public function propertyMapper( $object ) {
+		$modellArray = array();
+		if ( is_object( $object ) ) {
+			$attributes = get_object_vars( $object );
+			foreach ( $attributes as $attributeName => $attributeValue ) {
+				$modellArray[ strtolower( preg_replace( '/\B([A-Z])/', '_$1', lcfirst( $attributeName ) ) ) ] = $attributeValue;
+			}
+
+		}
+
+		return $modellArray;
 	}
 }
