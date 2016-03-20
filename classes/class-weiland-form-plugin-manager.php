@@ -41,9 +41,10 @@ class Weiland_Form_Plugin_Manager {
 		$this->weilandt_form_db();
 		$this->weilandt_form_update_db_check();
 	}
-	public function activateFrontend($attr) {
+
+	public function activateFrontend( $attr ) {
 		$frontend = new Weiland_Form_Frontend_Controller();
-		$frontend->dispatchForm($attr);
+		$frontend->dispatchForm( $attr );
 
 	}
 
@@ -51,23 +52,26 @@ class Weiland_Form_Plugin_Manager {
 	 * @param $className
 	 */
 	public function autoload( $className ) {
-		if ( stristr( $className, 'controller' ) !== FALSE ) {
+		if ( stristr( $className, 'controller' ) !== false ) {
 			$className = mb_strtolower( $className );
 			$className = str_replace( '_', '-', $className );
-			if(file_exists( WEILANDT_PATH . "/classes/controller/class-" . $className . ".php"))
-			require_once( WEILANDT_PATH . "/classes/controller/class-" . $className . ".php" );
+			if ( file_exists( WEILANDT_PATH . "/classes/controller/class-" . $className . ".php" ) ) {
+				require_once( WEILANDT_PATH . "/classes/controller/class-" . $className . ".php" );
+			}
 		}
-		if ( stristr( $className, 'model' ) !== FALSE ) {
+		if ( stristr( $className, 'model' ) !== false ) {
 			$className = mb_strtolower( $className );
 			$className = str_replace( '_', '-', $className );
-			if(file_exists( WEILANDT_PATH . "/classes/domain/model/class-" . $className . ".php"))
-			require_once( WEILANDT_PATH . "/classes/domain/model/class-" . $className . ".php" );
+			if ( file_exists( WEILANDT_PATH . "/classes/domain/model/class-" . $className . ".php" ) ) {
+				require_once( WEILANDT_PATH . "/classes/domain/model/class-" . $className . ".php" );
+			}
 		}
-		if ( stristr( $className, 'weiland' ) !== FALSE ) {
+		if ( stristr( $className, 'weiland' ) !== false ) {
 			$className = mb_strtolower( $className );
 			$className = str_replace( '_', '-', $className );
-			if(file_exists( WEILANDT_PATH . "/classes/class-" . $className . ".php"))
-			require_once( WEILANDT_PATH . "/classes/class-" . $className . ".php" );
+			if ( file_exists( WEILANDT_PATH . "/classes/class-" . $className . ".php" ) ) {
+				require_once( WEILANDT_PATH . "/classes/class-" . $className . ".php" );
+			}
 		}
 	}
 
@@ -79,7 +83,7 @@ class Weiland_Form_Plugin_Manager {
 		spl_autoload_register( array( &$this, 'autoload' ) );
 		add_action( 'admin_enqueue_scripts', array( &$this, 'integrate_admin_styles' ) );
 		add_action( 'admin_menu',
-		            array( &$this, 'build_menu' ) );
+			array( &$this, 'build_menu' ) );
 	}
 
 	/**
@@ -87,21 +91,21 @@ class Weiland_Form_Plugin_Manager {
 	 */
 	public function build_menu() {
 		add_options_page( 'weilandt Form Options',
-		                  'weilandt Form',
-		                  'manage_options',
-		                  'weilandt-form-menu',
-		                  'weilandt_form_options' );
+			'weilandt Form',
+			'manage_options',
+			'weilandt-form-menu',
+			'weilandt_form_options' );
 
 		add_menu_page( 'Weiland Form Items', // $page_title
-		               'Weilandt Form', // menu_title
-		               'manage_options', // capability
-		               'Weilandt', // slug
-		               array(
-			               'Weiland_Form_Admin_Dispatcher',
-			               'dispatch'
-		               ), // function
-		               'dashicons-forms', // icon_url
-		               1456173925 //position
+			'Weilandt Form', // menu_title
+			'manage_options', // capability
+			'Weilandt', // slug
+			array(
+				'Weiland_Form_Admin_Dispatcher',
+				'dispatch'
+			), // function
+			'dashicons-forms', // icon_url
+			1456173925 //position
 		);
 	}
 
@@ -217,21 +221,26 @@ class Weiland_Form_Plugin_Manager {
 	 *
 	 */
 	function integrate_admin_styles() {
-		$src['morris']    = "/wp-content/plugins/weilandt-form/res/lib/admin-theme/css/plugins/morris.css";
-		$src['admin']    = "/wp-content/plugins/weilandt-form/res/lib/admin-theme/css/sb-admin.css";
-		$src['bootstrap']    = "/wp-content/plugins/weilandt-form/res/lib/bootstrap/css/bootstrap.min.css";
-		$src['fonts']    = "/wp-content/plugins/weilandt-form/res/lib/admin-theme/font-awesome/css/font-awesome.css";
-		$src['styles']    = "/wp-content/plugins/weilandt-form/res/css/admin/styles.css";
-		$handle = "weilandt_form_admin";
-		foreach($src as $key => $source){
-			wp_enqueue_style( $handle.'-'.$key,$source, array(), FALSE, 'all' );
-		}
-		$js['bootstrap']    = "/wp-content/plugins/weilandt-form/res/lib/bootstrap/js/bootstrap.min.js";
-		$js['clipboard']    = "/wp-content/plugins/weilandt-form/res/js/admin/clipboard.min.js";
-		$js['styles']    = "/wp-content/plugins/weilandt-form/res/js/admin/scripts.js";
-		$handle = "weilandt_form_admin_js";
-		foreach($js as $key => $jssource){
-			wp_enqueue_script(  $handle.'-'.$key,$jssource, array(), FALSE,true );
+
+		if ( get_admin_page_title() == 'Weiland Form Items' ) {
+
+
+			$src['morris']    = "/wp-content/plugins/weilandt-form/res/lib/admin-theme/css/plugins/morris.css";
+			$src['admin']     = "/wp-content/plugins/weilandt-form/res/lib/admin-theme/css/sb-admin.css";
+			$src['bootstrap'] = "/wp-content/plugins/weilandt-form/res/lib/bootstrap/css/bootstrap.min.css";
+			$src['fonts']     = "/wp-content/plugins/weilandt-form/res/lib/admin-theme/font-awesome/css/font-awesome.css";
+			$src['styles']    = "/wp-content/plugins/weilandt-form/res/css/admin/styles.css";
+			$handle           = "weilandt_form_admin";
+			foreach ( $src as $key => $source ) {
+				wp_enqueue_style( $handle . '-' . $key, $source, array(), false, 'all' );
+			}
+			$js['bootstrap'] = "/wp-content/plugins/weilandt-form/res/lib/bootstrap/js/bootstrap.min.js";
+			$js['clipboard'] = "/wp-content/plugins/weilandt-form/res/js/admin/clipboard.min.js";
+			$js['styles']    = "/wp-content/plugins/weilandt-form/res/js/admin/scripts.js";
+			$handle          = "weilandt_form_admin_js";
+			foreach ( $js as $key => $jssource ) {
+				wp_enqueue_script( $handle . '-' . $key, $jssource, array(), false, true );
+			}
 		}
 	}
 
