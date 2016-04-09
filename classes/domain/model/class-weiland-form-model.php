@@ -54,13 +54,16 @@ class Weiland_Form_Model {
 	 * @param $values
 	 */
 	public function __construct( $values ) {
+echo '<pre>';
+		var_dump($values);
+		echo '</pre>';
 		foreach ( $values as $key => $value ) {
+
 			$propertyName = $this->underscoresToCamelCase( $key );
 			if ( property_exists( $this, $propertyName ) ) {
 				$this->$propertyName = $value;
 			}
 		}
-
 		if ( method_exists( get_class( $this ), 'initializeObject' ) ) {
 			$this->initializeObject();
 		}
@@ -150,7 +153,7 @@ class Weiland_Form_Model {
 		global $wpdb;
 
 		$wpdb->insert( $wpdb->prefix . $this::tableName,
-			$this->propertyMapper($this)
+			$this->propertyMapper( $this )
 		);
 		$wpdb->insert_id;
 
@@ -178,8 +181,13 @@ class Weiland_Form_Model {
 		return $this;
 	}
 
+	/**
+	 * @param $string
+	 * @param bool|false $capitalizeFirstCharacter
+	 *
+	 * @return mixed
+	 */
 	protected function underscoresToCamelCase( $string, $capitalizeFirstCharacter = false ) {
-
 		$str = str_replace( ' ', '', ucwords( str_replace( '_', ' ', $string ) ) );
 
 		if ( ! $capitalizeFirstCharacter ) {
@@ -215,9 +223,14 @@ class Weiland_Form_Model {
 		}
 
 		return $objects;
-
 	}
 
+	/**
+	 * @param $attributeName
+	 * @param $attributeValue
+	 *
+	 * @return mixed
+	 */
 	public static function findOneByAttribute( $attributeName, $attributeValue ) {
 
 		global $wpdb;
@@ -243,7 +256,6 @@ class Weiland_Form_Model {
 	 * @param $arguments
 	 */
 	public static function __callStatic( $name, $arguments ) {
-
 		if ( strrpos( $name, 'findBy', - strlen( $name ) ) !== false ) {
 			$attributeName = explode( 'findBy', $name );
 			$attributeName = $attributeName[1];
@@ -265,7 +277,6 @@ class Weiland_Form_Model {
 			foreach ( $attributes as $attributeName => $attributeValue ) {
 				$modellArray[ strtolower( preg_replace( '/\B([A-Z])/', '_$1', lcfirst( $attributeName ) ) ) ] = $attributeValue;
 			}
-
 		}
 
 		return $modellArray;

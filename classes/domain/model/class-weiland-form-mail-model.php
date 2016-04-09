@@ -27,47 +27,69 @@
  ******************************************************************/
 
 /**
- * Class Weiland_Form_Device_Repair_Model
+ * Class Weiland_Form_Mail_Model
  */
-class Weiland_Form_Device_Repair_Model extends Weiland_Form_Model {
+class Weiland_Form_Mail_Model extends Weiland_Form_Model {
 
-	const tableName = 'pl_weilandt_form_device_repair';
-
-	/**
-	 * @var string
-	 */
-	public $serialNo;
-
-	/**
-	 * @var string
-	 */
-	public $problemDescription;
+	const tableName = 'pl_weilandt_form_mail';
 
 	/**
 	 * @var integer
 	 */
-	public $plWeilandtFormDeviceId;
+	public $id;
+
+	/**
+	 * @var string
+	 */
+	public $backAdress = '';
+
+	/**
+	 * @var string
+	 */
+	public $repeatRepair ='';
+
+	/**
+	 * @var string
+	 */
+	public $comments ='';
+
+	/**
+	 * @var string
+	 */
+	public $agb = '';
+
 	/**
 	 * @var integer
 	 */
-	public $warranty;
+	public $hidden = 0;
 
 	/**
-	 * @param int|Weiland_Form_User_Model
-	 * @return array
+	 * @var integer
 	 */
-	public static function findByUser($user) {
-		global $wpdb;
-		$repairDevices = array();
-		$rawResults = $wpdb->get_results(
-			'SELECT '. $wpdb->prefix . self::tableName .'.*
-			 FROM ' . $wpdb->prefix . self::tableName .'
-			 INNER JOIN '. $wpdb->prefix .'pl_weilandt_form_user_device_repair_mm
-			 ON '. $wpdb->prefix . self::tableName .'.id = pl_weilandt_form_device_repair_id
-			 WHERE pl_weilandt_form_device_user_id = '.$user);
-		foreach ( $rawResults as $rawResult ) {
-			$repairDevices[] = new Weiland_Form_Device_Repair_Model( $rawResult );
+	public $deleted = 0;
+
+	/**
+	 * @var integer
+	 */
+	public $userId = 0;
+
+	/**
+	 * @var array
+	 */
+	protected $repairDevices = '';
+
+	/**
+	 * 
+	 */
+	protected function initializeObject() {
+		 $values  = $this->repairDevices;
+		if ( $values ) {
+			foreach ( $values as $repairDevice ) {
+			//var_dump($repairDevice);
+				$repairDevice       = new Weiland_Form_Device_Repair_Model( $repairDevice );
+				$repairDevice->persist( );
+			}
 		}
-		return $repairDevices;
 	}
+
 }

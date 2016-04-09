@@ -52,21 +52,15 @@ class Weiland_Form_Frontend_Controller extends Weiland_Form_Controller
         global $wpdb;
         $countries = $rawResults = $wpdb->get_results('SELECT * FROM ' . $wpdb->prefix . 'countries');
         esc_url(admin_url('admin-post.php'));
+
        if(file_exists(WEILANDT_PATH . '/res/html/templates/frontend/form'.$id.'.html')) {
             echo $this->view->render('frontend/form'.$id.'.html', array(
                 'countries' => $countries,
-                'devices'   => Weiland_Form_Device_Model::findById($id),
-                'admin'     => esc_url(admin_url('admin-post.php'))
+                'devices'   => Weiland_Form_Device_Model::findByAttribute('formId', $id),
             ));
         }else {
             echo $this->view->render('frontend/error.html');
         }
-    }
-
-    public function decideAction($params)
-    {
-
-
     }
 
 }

@@ -31,109 +31,129 @@
  */
 class Weiland_Form_User_Model extends Weiland_Form_Model {
 
-	const tableName = 'pl_weilandt_form_device_user';
+	const tableName = 'pl_weilandt_form_user';
+
+	/**
+	 * @var string
+	 */
+	public $gender = '';
+
+	/**
+	 * @var string
+	 */
+	public $contactPerson = '';
+
+	/**
+	 * @var string
+	 */
+	public $companyName = '';
+
+	/**
+	 * @var string
+	 */
+	public $companyStreet = '';
+
+	/**
+	 * @var string
+	 */
+	public $companyLocation = '';
+	/**
+	 * @var string
+	 */
+	public $companyCountry = '';
+	/**
+	 * @var string
+	 */
+	public $fullName = '';
+
+	/**
+	 * @var string
+	 */
+	public $street = '';
+
+	/**
+	 * @var string
+	 */
+	public $location = '';
+
+	/**
+	 * @var string
+	 */
+	public $country = '';
+
+	/**
+	 * @var string
+	 */
+	public $forms = '';
+
+	/**
+	 * @var string
+	 */
+	public $fax = '';
+
+	/**
+	 * @var string
+	 */
+	public $password = '';
+
+	/**
+	 * @var string
+	 */
+	public $streetNo = '';
+
+	/**
+	 * @var string
+	 */
+	public $zip = '';
+
+	/**
+	 * @var string
+	 */
+	public $city = '';
+
+	/**
+	 * @var string
+	 */
+	public $phone  ='';
+
+
+	/**
+	 * @var string
+	 */
+	public $email ='';
+
+	/**
+	 * @var string
+	 */
+	public $vatNo = '';
 
 	/**
 	 * @var integer
 	 */
-	public $gender;
-
-	/**
-	 * @var string
-	 */
-	public $contact_person;
-
-	/**
-	 * @var string
-	 */
-	public $company;
-
-	/**
-	 * @var string
-	 */
-	public $street_no;
-
-	/**
-	 * @var string
-	 */
-	public $zip;
-
-	/**
-	 * @var string
-	 */
-	public $city;
-
-	/**
-	 * @var string
-	 */
-	public $country;
-
-	/**
-	 * @var string
-	 */
-	public $phone;
-
-	/**
-	 * @var string
-	 */
-	public $fax;
-
-	/**
-	 * @var string
-	 */
-	public $mail;
-
-	/**
-	 * @var string
-	 */
-	public $vat_no;
-
-	/**
-	 * @var string
-	 */
-	public $back_address;
+	public $hidden = 0;
 
 	/**
 	 * @var integer
 	 */
-	public $cost_estimate;
+	public $deleted = 0;
 
 	/**
-	 * @var integer
+	 * @var array
 	 */
-	public $repeat_repair;
-
-	/**
-	 * @var string
-	 */
-	public $comments;
-
-	/**
-	 * @var integer
-	 */
-	public $agb;
-
-	/**
-	 * @var integer
-	 */
-	public $hidden;
-
-	/**
-	 * @var integer
-	 */
-	public $deleted;
-
-	/**
-	 * @var \SplObjectStorage<Weiland_Form_Device_Repair_Model>
-	 */
-	protected $repair_devices;
+	protected $mails = '';
 
 	protected function initializeObject() {
-		// repair devices
-		$this->repair_devices = new \SplObjectStorage();
-		$repair_devices = Weiland_Form_Device_Repair_Model::findByUser($this);
-		foreach($repair_devices as $repair_device) {
-			$this->repair_devices->attach($repair_device);
+		$values = '';
+		$values  = $this->mails;
+		$this->mails = array();
+	if ( $values ) {
+			foreach ( $values as $mail ) {
+				$mail      = new Weiland_Form_Mail_Model($mail);
+				$mail->userId = $this->getId();
+				$mail->persist();
+			}
 		}
 	}
+
+
 }

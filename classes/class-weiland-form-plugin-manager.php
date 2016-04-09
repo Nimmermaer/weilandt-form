@@ -43,6 +43,9 @@ class Weiland_Form_Plugin_Manager {
 	}
 
 	public function activateFrontend( $attr ) {
+		if(array_key_exists('formular',$attr)) {
+			$this->integrate_frontend_styles();
+		}
 		$frontend = new Weiland_Form_Frontend_Controller();
 		$frontend->dispatchForm( $attr );
 
@@ -154,40 +157,66 @@ class Weiland_Form_Plugin_Manager {
 		dbDelta( $sql3 );
 
 
-		$pl_weilandt_form_device_user = $wpdb->prefix . "pl_weilandt_form_device_user";
-		$charset_collate              = $wpdb->get_charset_collate();
+		$pl_weilandt_form_user = $wpdb->prefix . "pl_weilandt_form_user";
+		$charset_collate       = $wpdb->get_charset_collate();
 
-		$sql4 = 'CREATE TABLE IF NOT EXISTS  ' . $pl_weilandt_form_device_user . ' (
-  			  id INT NOT NULL AUTO_INCREMENT,
-			  gender VARCHAR(45) NULL,
-			  contact_person VARCHAR(45) NULL,
-			  company VARCHAR(45) NULL,
-			  street_no VARCHAR(45) NULL,
-			  zip VARCHAR(45) NULL,
-			  city VARCHAR(45) NULL,
-			  country VARCHAR(45) NULL,
-			  phone VARCHAR(45) NULL,
-			  fax VARCHAR(45) NULL,
-			  mail VARCHAR(45) NULL,
-			  vat_no VARCHAR(45) NULL,
-			  back_address TEXT NULL,
-			  cost_estimate INT NULL,
-			  repeat_repair INT NULL,
-			  comments TEXT NULL,
-			  agb VARCHAR(45) NULL,
-			  hidden INT NULL,
-			  deleted INT NULL,
-			  PRIMARY KEY (id)
+		$sql4 = 'CREATE TABLE IF NOT EXISTS  ' . $pl_weilandt_form_user . ' (
+  			id INT NOT NULL AUTO_INCREMENT,
+  			gender INT(11) NOT NULL,
+			company_name VARCHAR(255) NULL,
+			company_street VARCHAR(255) NULL,
+			company_location VARCHAR(255) NULL,
+			company_country VARCHAR(255) NULL,
+			contact_person VARCHAR(255) NULL,
+			email VARCHAR(255) NULL,
+			phone VARCHAR(255) NULL,
+			full_name VARCHAR(255) NULL,
+			street VARCHAR(255) NULL,
+			city VARCHAR(255) NULL,
+			street_no VARCHAR(45) NULL,
+			zip VARCHAR(255) NULL,
+			location VARCHAR(255) NULL,
+			country VARCHAR(255) NULL,
+			forms INT(11) NULL,
+			fax VARCHAR(45) NULL,
+			password VARCHAR(255) NULL,
+			vat_no VARCHAR(45) NULL,
+			hidden INT NULL,
+			deleted INT NULL,
+			mails INT NULL,
+			PRIMARY KEY (id)
 		)' . $charset_collate . ';';
 		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 		dbDelta( $sql4 );
-		$table_name      = $wpdb->prefix . "pl_weilandt_form_user_device_repair_mm";
-		$charset_collate = $wpdb->get_charset_collate();
 
-		$sql = 'CREATE TABLE IF NOT EXISTS ' . $table_name . '  (
-  		pl_weilandt_form_device_user_id INT NOT NULL,
+
+		$pl_weilandt_form_mail = $wpdb->prefix . "pl_weilandt_form_mail";
+		$charset_collate       = $wpdb->get_charset_collate();
+
+		$sql5 = 'CREATE TABLE IF NOT EXISTS ' . $pl_weilandt_form_mail . '  (
+  		  id INT NOT NULL AUTO_INCREMENT,
+		  back_address TEXT NULL,
+		  cost_estimate INT NULL,
+		  repeat_repair INT NULL,
+		  comments TEXT NULL,
+		  agb VARCHAR(45) NULL,
+		  hidden INT NULL,
+		  deleted INT NULL,
+		  repair_devices INT NOT NULL,
+		  user_id INT NOT NULL,
+		  PRIMARY KEY (id)
+  		)' . $charset_collate . ';';
+		add_option( 'weilandt_db_version', $weilandt_db_version );
+		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+		dbDelta( $sql5 );
+
+		$pl_weilandt_form_user_device_repair_mm = $wpdb->prefix . "pl_weilandt_form_user_device_repair_mm";
+		$charset_collate                        = $wpdb->get_charset_collate();
+
+		$sql = 'CREATE TABLE IF NOT EXISTS ' . $pl_weilandt_form_user_device_repair_mm . '  (
+  		pl_weilandt_form_mail_id INT NOT NULL,
         pl_weilandt_form_device_repair_id INT NOT NULL,
-        PRIMARY KEY (pl_weilandt_form_device_user_id, pl_weilandt_form_device_repair_id)
+        PRIMARY KEY (pl_weilandt_form_device_mail_id, pl_weilandt_form_device_repair_id)
 
 		)' . $charset_collate . ';';
 		add_option( 'weilandt_db_version', $weilandt_db_version );
@@ -223,8 +252,6 @@ class Weiland_Form_Plugin_Manager {
 	function integrate_admin_styles() {
 
 		if ( get_admin_page_title() == 'Weiland Form Items' ) {
-
-
 			$src['morris']    = "/wp-content/plugins/weilandt-form/res/lib/admin-theme/css/plugins/morris.css";
 			$src['admin']     = "/wp-content/plugins/weilandt-form/res/lib/admin-theme/css/sb-admin.css";
 			$src['bootstrap'] = "/wp-content/plugins/weilandt-form/res/lib/bootstrap/css/bootstrap.min.css";
@@ -243,5 +270,15 @@ class Weiland_Form_Plugin_Manager {
 			}
 		}
 	}
+
+	/**
+	 *
+	 */
+	function integrate_frontend_styles() {
+
+		wp_enqueue_style( 'weilandt-styles', '/wp-content/plugins/weilandt-form/res/css/frontend/styles.css' );
+		wp_enqueue_script( 'weilandt--script', '/wp-content/plugins/weilandt-form/res/js/frontend/scripts.js' );
+	}
+
 
 }

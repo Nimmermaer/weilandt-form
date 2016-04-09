@@ -47,17 +47,20 @@ define( 'WEILANDT_URI', plugin_dir_url( __FILE__ ) );
  */
 $GLOBALS['Forms'] = array(
 	array(
-		'id' => '1',
-		'name' => 'Casio Reparaturauftrag'
+		'id'    => '1',
+		'name'  => 'Casio Reparaturauftrag',
+		'color' => 'green'
 	),
 	array(
-		'id' => '2',
-		'name' => 'M3Mobile Reparaturauftrag'
+		'id'    => '2',
+		'name'  => 'M3Mobile Reparaturauftrag',
+		'color' => 'yellow'
 	),
-    array(
-	    'id' => '3',
-	    'name' => 'RMA Request Form'
-    )
+	array(
+		'id'    => '3',
+		'name'  => 'RMA Request Form',
+		'color' => 'primary'
+	)
 );
 
 register_activation_hook( __FILE__,
@@ -69,26 +72,24 @@ register_activation_hook( __FILE__,
 	} );
 
 
-add_shortcode('weilandt_frontend', function($atts) {
+add_shortcode( 'weilandt_frontend', function ( $atts ) {
 	require_once plugin_dir_path( __FILE__ ) . 'classes/class-weiland-form-plugin-manager.php';
 	$pluginManager = new Weiland_Form_Plugin_Manager();
-	$pluginManager->activateFrontend($atts);
-});
+	$pluginManager->activateFrontend( $atts );
+} );
 
-add_action( 'the_post',function() {
-
-
-	if(array_key_exists('form1', $_REQUEST)){
-		$frontend = new Weiland_Form_Frontend_Controller();
-		$frontend->decideAction($_REQUEST);
+add_action( 'the_post', function () {
+	if ( array_key_exists( 'form', $_REQUEST ) ) {
+		$form = new Weiland_Form_User_Model( $_REQUEST['form'] );
+		$form->persist();
 	}
 
 } );
 
 
-add_action( 'admin_post_contact_form', function() {
+add_action( 'admin_post_contact_form', function () {
 
-});
+} );
 
 $runWeilandtForm = function () {
 	require_once plugin_dir_path( __FILE__ ) . 'classes/class-weiland-form-plugin-manager.php';

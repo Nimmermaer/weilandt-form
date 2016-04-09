@@ -32,12 +32,12 @@
                         <input type="hidden" name="pl_weilandt_form[device][id]" value="{{device.id}}">
                         <input class="form-control" value="{{device.name}}" name="pl_weilandt_form[device][name]"/>
                     </div>
-                    <select class="form-control" name="pl_weilandt_form[device][form_id]">
+                    <select class="form-control" name="pl_weilandt_form[device][formId]">
                         {% for key,form in forms %}
-                        {% if key == device.form_id %}
-                            <option value="{{key}}" selected="selected">{{form}}</option>
+                        {% if key == device.formId %}
+                            <option value="{{form.id}}" selected="selected">{{form.name}}</option>
                         {% else %}
-                            <option value="{{key}}">{{form}}</option>
+                            <option value="{{form.id}}">{{form.name}}</option>
                         {% endif %}
                         {% endfor %}
                     </select>

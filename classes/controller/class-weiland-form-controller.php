@@ -35,24 +35,44 @@ class Weiland_Form_Controller {
 
 	protected $request = null;
 
-	public function __construct()
-	{
+	public function __construct() {
 		$this->showFlashMessages();
-
 		$this->buildRequestObject();
-
 		$this->loadView();
 	}
 
 	protected function loadView() {
-		require_once WEILANDT_PATH . 'vendor/Twig/lib/Twig/Autoloader.php';
+
+		if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN')
+
+		if ( class_exists( 'Polylang' ) ) {
+			putenv( 'LC_ALL=' . pll_current_language( 'locale' ).'UTF-8' );
+			setlocale( LC_ALL, pll_current_language( 'locale' ).'UTF-8' );
+			bindtextdomain( "weilandtForm", WEILANDT_PATH . '/res/lang' );
+			textdomain( "weilandtForm" );
+			bind_textdomain_codeset( 'weilandtForm', 'UTF-8' );
+		}
+
+		require_once WEILANDT_PATH . 'vendor/twig/twig/lib/Twig/Autoloader.php';
+		require_once WEILANDT_PATH . 'vendor/twig/extensions/lib/Twig/Extensions/Autoloader.php';
 		Twig_Autoloader::register();
+		Twig_Extensions_Autoloader::register();
+		$tplDir     = WEILANDT_PATH . '/res/html/templates';
 		$loader     = new Twig_Loader_Filesystem( WEILANDT_PATH . '/res/html/templates' );
 		$this->view = new Twig_Environment( $loader, array(
 			'debug' => true,
 			'cache' => WEILANDT_PATH . '/res/html/twig_compilation_cache',
 		) );
+		$trans      = new Twig_Extensions_Extension_I18n();
+		$this->view->addExtension( new \Twig_Extensions_Extension_I18n() );
 		$this->view->addExtension( new Twig_Extension_Debug() );
+
+		foreach ( new RecursiveIteratorIterator( new RecursiveDirectoryIterator( $tplDir ), RecursiveIteratorIterator::LEAVES_ONLY ) as $file ) {
+			// force compilation
+			if ( $file->isFile() ) {
+				$this->view->loadTemplate( str_replace( $tplDir, '', $file ) );
+			}
+		}
 	}
 
 	public function showFlashMessages() {
@@ -62,12 +82,12 @@ class Weiland_Form_Controller {
 	}
 
 	protected function buildRequestObject() {
-		$request = new StdClass();
+		$request            = new StdClass();
 		$request->arguments = array();
 
-		if(array_key_exists('pl_weilandt_form', $_REQUEST)) {
+		if ( array_key_exists( 'pl_weilandt_form', $_REQUEST ) ) {
 			$rawRequestArguments = $_REQUEST['pl_weilandt_form'];
-			$request->arguments = $rawRequestArguments;
+			$request->arguments  = $rawRequestArguments;
 		}
 
 		$this->request = $request;
