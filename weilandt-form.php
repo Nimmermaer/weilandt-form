@@ -32,68 +32,72 @@
 
 
 // If this file is called directly, abort.
-if ( ! defined( 'WPINC' ) ) {
-	die;
+if (!defined('WPINC')) {
+    die;
 }
 
 /**
  * Define constants for the plugin
  */
-define( 'WEILANDT_PATH', plugin_dir_path( __FILE__ ) );
-define( 'WEILANDT_URI', plugin_dir_url( __FILE__ ) );
+define('WEILANDT_PATH', plugin_dir_path(__FILE__));
+define('WEILANDT_URI', plugin_dir_url(__FILE__));
 
 /**
  *  Forms
  */
 $GLOBALS['Forms'] = array(
-	array(
-		'id'    => '1',
-		'name'  => 'Casio Reparaturauftrag',
-		'color' => 'green'
-	),
-	array(
-		'id'    => '2',
-		'name'  => 'M3Mobile Reparaturauftrag',
-		'color' => 'yellow'
-	),
-	array(
-		'id'    => '3',
-		'name'  => 'RMA Request Form',
-		'color' => 'primary'
-	)
+    array(
+        'id' => '1',
+        'name' => 'Casio Reparaturauftrag',
+        'color' => 'green'
+    ),
+    array(
+        'id' => '2',
+        'name' => 'M3Mobile Reparaturauftrag',
+        'color' => 'yellow'
+    ),
+    array(
+        'id' => '3',
+        'name' => 'RMA Request Form',
+        'color' => 'primary'
+    )
 );
 
-register_activation_hook( __FILE__,
-	function () {
-		require_once plugin_dir_path( __FILE__ ) . 'classes/class-weiland-form-plugin-manager.php';
-		$pluginManager = new Weiland_Form_Plugin_Manager();
-		$pluginManager->activate();
+register_activation_hook(__FILE__,
+    function () {
+        require_once plugin_dir_path(__FILE__) . 'classes/class-weiland-form-plugin-manager.php';
+        $pluginManager = new Weiland_Form_Plugin_Manager();
+        $pluginManager->activate();
 
-	} );
-
-
-add_shortcode( 'weilandt_frontend', function ( $atts ) {
-	require_once plugin_dir_path( __FILE__ ) . 'classes/class-weiland-form-plugin-manager.php';
-	$pluginManager = new Weiland_Form_Plugin_Manager();
-	$pluginManager->activateFrontend( $atts );
-} );
-
-add_action( 'the_post', function () {
-	if ( array_key_exists( 'form', $_REQUEST ) ) {
-		$form = new Weiland_Form_User_Model( $_REQUEST['form'] );
-		$form->persist();
-	}
-
-} );
+    });
 
 
-add_action( 'admin_post_contact_form', function () {
+function weilandt_form_options()
+{
+    (new Weiland_Form_Option_Controller())->optionAction();
+}
 
-} );
+add_shortcode('weilandt_frontend', function ($atts) {
+    require_once plugin_dir_path(__FILE__) . 'classes/class-weiland-form-plugin-manager.php';
+    $pluginManager = new Weiland_Form_Plugin_Manager();
+    $pluginManager->activateFrontend($atts);
+});
+
+add_action('the_post', function () {
+    if (array_key_exists('form', $_REQUEST)) {
+        $form = new Weiland_Form_User_Model($_REQUEST['form']);
+        $form->persist();
+    }
+
+});
+
+add_action('admin_post_contact_form', function () {
+
+});
 
 $runWeilandtForm = function () {
-	require_once plugin_dir_path( __FILE__ ) . 'classes/class-weiland-form-plugin-manager.php';
-	$pluginManager = new Weiland_Form_Plugin_Manager();
-	$pluginManager->run();
+    require_once plugin_dir_path(__FILE__) . 'classes/class-weiland-form-plugin-manager.php';
+    $pluginManager = new Weiland_Form_Plugin_Manager();
+    $pluginManager->run();
 };
 $runWeilandtForm();

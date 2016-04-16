@@ -55,7 +55,6 @@ class Weiland_Form_Model {
 	 */
 	public function __construct( $values ) {
 echo '<pre>';
-		var_dump($values);
 		echo '</pre>';
 		foreach ( $values as $key => $value ) {
 

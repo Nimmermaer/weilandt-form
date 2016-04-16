@@ -94,9 +94,9 @@ class Weiland_Form_Plugin_Manager {
 	 */
 	public function build_menu() {
 		add_options_page( 'weilandt Form Options',
-			'weilandt Form',
+			'Weilandt Form',
 			'manage_options',
-			'weilandt-form-menu',
+			'weilandt_form_menu',
 			'weilandt_form_options' );
 
 		add_menu_page( 'Weiland Form Items', // $page_title

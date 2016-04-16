@@ -2,49 +2,49 @@
       action=''
       id="form_2">
     <div class="form-group">
-        <label for="company">Firmenname</label>
-        <input type="text" class="form-control" id="company" name="form[2][companyName]">
+        <label for="company">{% trans 'Firmenname' %}</label>
+        <input type="text" class="form-control" id="company" name="form[1][companyName]">
 
-        <label for="street">Straße Hausnummer</label>
-        <input type="text" class="form-control" id="street" name="form[2][companyStreet]">
+        <label for="street">{% trans 'Straße' %}/{% trans Hausnummer %}</label>
+        <input type="text" class="form-control" id="street" name="form[1][companyStreet]">
 
-        <label for="zip">Postleitzahl</label>
-        <input type="text" class="form-control" id="zip" name="form[2][companyZip]">
+        <label for="zip">{% trans 'Postleitzahl' %}</label>
+        <input type="text" class="form-control" id="zip" name="form[1][companyZip]">
 
-        <label for="city">Ort</label>
-        <input type="text" class="form-control" id="city" name="form[2][companyLocation]">
+        <label for="city">{% trans 'Ort' %}</label>
+        <input type="text" class="form-control" id="city" name="form[1][companyLocation]">
 
         <div class="form-group">
-            <label for="country">Land:</label>
-            <select class="form-control" id="country" name="form[2][companyCountry]">
+            <label for="country">{% trans 'Land' %}:</label>
+            <select class="form-control" id="country" name="form[1][companyCountry]">
                 {% for country in countries %}
                 <option value="{{country.de}}">{{country.de}}</option>
                 {% endfor %}
             </select>
         </div>
 
-        <label for="email">Email</label>
+        <label for="email">{% trans 'Email' %}</label>
 
         <div class="form-group input-group">
 
             <span class="input-group-addon">@</span>
-            <input type="text" class="form-control" id="email" name="form[2][email]" placeholder="">
+            <input type="text" class="form-control" id="email" name="form[1][email]" placeholder="">
         </div>
-        <label for="phone">Telefon</label>
-        <input type="text" class="form-control" id="phone" name="form[2][phone]">
+        <label for="phone">{% trans 'Telefon' %}</label>
+        <input type="text" class="form-control" id="phone" name="form[1][phone]">
     </div>
     <div class="form-group">
-        <label for="name">Name</label>
+        <label for="name">{% trans 'Name' %}</label>
         <input type="text" class="form-control" id="name" name="form[2][fullName]">
-        <label for="personStreet">Straße Hausnummer</label>
+        <label for="personStreet">{% trans 'Straße' %} {% trans 'Hausnummer' %}</label>
         <input type="text" class="form-control" id="personStreet" name="form[2][personStreet]">
-        <label for="personZip">Postleitzahl:</label>
+        <label for="personZip">{% trans 'Postleitzahlen' %}:</label>
         <input type="text" class="form-control" id="personZip" name="form[2][personZip]">
-        <label for="personCity">Ort</label>
+        <label for="personCity">{% trans 'Ort' %}</label>
         <input type="text" class="form-control" id="personCity" name="form[2][personCity]">
 
         <div class="form-group">
-            <label for="personCountry">Land:</label>
+            <label for="personCountry">{% trans 'Land' %}:</label>
             <select class="form-control" id="personCountry" name="form[2][personCountry]">
                 {% for country in countries %}
                 <option value="{{country.de}}">{{country.de}}</option>
@@ -56,12 +56,12 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="col-md-1">
-                    <label for="count">Nr.</label>
+                    <label for="count">{% trans 'Nr' %}.</label>
                     <span id="count" data-count="1">1</span>
                 </div>
                 <div class="col-md-3">
                     <div class="form-group">
-                        <label for="device">Gerätebezeichnung:</label>
+                        <label for="device">{% trans 'Gerätebezeichnung' %}:</label>
                         <select class="form-control" id="device" name="form[2][device][device]">
                             {% for device in devices %}
                             <option value="{{device.id}}">{{device.name}}</option>
@@ -70,7 +70,7 @@
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <label for="serial">Seriennummer</label>
+                    <label for="serial">{% trans 'Seriennummer' %}</label>
 
                     <div class="form-group input-group">
                                             <span class="input-group-addon"><i class="fa fa-phone"></i>
@@ -81,12 +81,12 @@
                 </div>
                 <div class="col-md-5">
                     <div class="form-group">
-                        <label for="message">Nachricht</label>
+                        <label for="message">{% trans 'Nachricht' %}</label>
                         <textarea id="message" class="form-control" rows="3" name="form[2][device][message]"></textarea>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">{% trans 'Submit' %}</button>
 </form>
