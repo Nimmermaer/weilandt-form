@@ -1,7 +1,7 @@
 /**
  * Created by Michael on 08.03.2016.
  */
-jQuery( document ).ready(function() {
+jQuery(document).ready(function () {
 
     jQuery('[data-toggle="tooltip"]').tooltip();
 
@@ -12,8 +12,8 @@ jQuery( document ).ready(function() {
 
     var clipboard = new Clipboard('.form-btn');
 
-    clipboard.on('success', function(e) {
-           e.clearSelection();
+    clipboard.on('success', function (e) {
+        e.clearSelection();
 
     });
 

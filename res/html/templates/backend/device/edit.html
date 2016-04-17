@@ -35,9 +35,9 @@
                     <select class="form-control" name="pl_weilandt_form[device][formId]">
                         {% for key,form in forms %}
                         {% if key == device.formId %}
-                            <option value="{{form.id}}" selected="selected">{{form.name}}</option>
+                        <option value="{{form.id}}" selected="selected">{{form.name}}</option>
                         {% else %}
-                            <option value="{{form.id}}">{{form.name}}</option>
+                        <option value="{{form.id}}">{{form.name}}</option>
                         {% endif %}
                         {% endfor %}
                     </select>

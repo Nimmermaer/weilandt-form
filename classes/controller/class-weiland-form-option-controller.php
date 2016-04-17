@@ -29,16 +29,16 @@
 /**
  * Class Weiland_Form_Controller
  */
-class Weiland_Form_Option_Controller extends Weiland_Form_Admin_Controller{
-	/**
-	 *  dashboardAction
-	 */
-	public function optionAction() {
+class Weiland_Form_Option_Controller extends Weiland_Form_Admin_Controller
+{
+    /**
+     *  dashboardAction
+     */
+    public function optionAction()
+    {
 
-		echo $this->view->render( 'backend/options/options.html',
-			array(
+        echo $this->view->render('backend/options/options',
+            array());
 
-			) );
-
-	}
+    }
 }

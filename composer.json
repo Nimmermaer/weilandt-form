@@ -1,0 +1,7 @@
+{
+  "require": {
+    "twig/twig": "~1.0",
+    "twig/extensions": "^1.3",
+    "umpirsky/twig-gettext-extractor": "^1.2"
+  }
+}

@@ -40,9 +40,9 @@ class Weiland_Form_Device_Controller extends Weiland_Form_Admin_Controller
     {
         global $wpdb;
 
-        echo $this->view->render('backend/device/list.html', array(
+        echo $this->view->render('backend/device/list', array(
             'siteUrl' => get_site_url(),
-            'forms'   => $GLOBALS['Forms'],
+            'forms' => $GLOBALS['Forms'],
         ));
     }
 
@@ -51,9 +51,9 @@ class Weiland_Form_Device_Controller extends Weiland_Form_Admin_Controller
      */
     public function showAction()
     {
-        echo $this->view->render('backend/device/show.html', array(
+        echo $this->view->render('backend/device/show', array(
             'siteUrl' => get_site_url(),
-            'forms'   => $GLOBALS['Forms']
+            'forms' => $GLOBALS['Forms']
         ));
     }
 
@@ -64,9 +64,9 @@ class Weiland_Form_Device_Controller extends Weiland_Form_Admin_Controller
     {
 
         $device = Weiland_Form_Device_Model::findById($this->request->arguments['device']['id']);
-        echo $this->view->render('backend/device/edit.html', array(
-            'device'  => $device,
-            'forms'   => $GLOBALS['Forms'],
+        echo $this->view->render('backend/device/edit', array(
+            'device' => $device,
+            'forms' => $GLOBALS['Forms'],
             'siteUrl' => get_site_url(),
         ));
     }
@@ -76,8 +76,8 @@ class Weiland_Form_Device_Controller extends Weiland_Form_Admin_Controller
      */
     public function newAction()
     {
-        echo $this->view->render('backend/device/new.html', array(
-            'forms'   => $GLOBALS['Forms'],
+        echo $this->view->render('backend/device/new', array(
+            'forms' => $GLOBALS['Forms'],
             'siteUrl' => get_site_url(),
         ));
     }
@@ -92,15 +92,15 @@ class Weiland_Form_Device_Controller extends Weiland_Form_Admin_Controller
 
         if ($this->request->arguments['device']) {
             $devicetoAdd = new Weiland_Form_Device_Model($this->request->arguments['device']);
-            if(is_object($devicetoAdd)) {
+            if (is_object($devicetoAdd)) {
                 $devicetoAdd->persist();
                 $message = 'Neues Gerät <strong>' . $devicetoAdd->name . '</strong> erstellt!';
-                $class   = 'updated';
+                $class = 'updated';
             }
         }
 
         if (function_exists('queue_flash_message')) {
-            queue_flash_message($message, $class );
+            queue_flash_message($message, $class);
         }
         $this->redirect('dashboard', 'admin');
     }
@@ -110,11 +110,11 @@ class Weiland_Form_Device_Controller extends Weiland_Form_Admin_Controller
      */
     public function updateAction()
     {
-          $message = 'funktioniert nicht';
+        $message = 'funktioniert nicht';
 
         if ($this->request->arguments['device']['id']) {
             $deviceToUpdate = Weiland_Form_Device_Model::findById($this->request->arguments['device']['id']);
-            if(is_object($deviceToUpdate)) {
+            if (is_object($deviceToUpdate)) {
                 $deviceToUpdate->updateValuesFromRequest($this->request->arguments['device']);
                 if ($deviceToUpdate->persist()) {
                     $message = 'funktioniert';
@@ -134,17 +134,17 @@ class Weiland_Form_Device_Controller extends Weiland_Form_Admin_Controller
      */
     public function deleteAction()
     {
-        $flash ['message']= 'Gerät nicht gelöscht';
-        $flash ['class']= 'error';
+        $flash ['message'] = 'Gerät nicht gelöscht';
+        $flash ['class'] = 'error';
         if ($this->request->arguments['device']['id']) {
             $deviceToDelete = Weiland_Form_Device_Model::findById($this->request->arguments['device']['id']);
             if (is_object($deviceToDelete) && $deviceToDelete->delete()) {
-                $flash ['message']= 'Device gelöscht';
-                $flash ['class']= 'updated';
+                $flash ['message'] = 'Device gelöscht';
+                $flash ['class'] = 'updated';
             }
         }
         if (function_exists('queue_flash_message')) {
-            queue_flash_message($flash ['message'],  $flash ['class']);
+            queue_flash_message($flash ['message'], $flash ['class']);
         }
 
         $this->redirect('dashboard', 'admin');

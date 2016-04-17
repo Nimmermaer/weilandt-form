@@ -29,22 +29,24 @@
 /**
  * Class Weiland_Form_Admin_Dispatcher
  */
-class Weiland_Form_Admin_Dispatcher {
+class Weiland_Form_Admin_Dispatcher
+{
 
-	/**
-	 *
-	 */
-	public static function dispatch() {
+    /**
+     *
+     */
+    public static function dispatch()
+    {
 
-		if ( array_key_exists( 'pl_weilandt', $_REQUEST ) ) {
-			$class      = 'Weiland_Form_' . ucfirst( $_REQUEST['pl_weilandt']['controller'] ).'_controller';
-			$action     = $_REQUEST['pl_weilandt']['action'] . 'Action';
-			$controller = new $class();
-			$controller->$action();
-		} else {
-			$controller = new Weiland_Form_Admin_Controller();
-			$controller->dashboardAction();
-		}
+        if (array_key_exists('pl_weilandt', $_REQUEST)) {
+            $class = 'Weiland_Form_' . ucfirst($_REQUEST['pl_weilandt']['controller']) . '_controller';
+            $action = $_REQUEST['pl_weilandt']['action'] . 'Action';
+            $controller = new $class();
+            $controller->$action();
+        } else {
+            $controller = new Weiland_Form_Admin_Controller();
+            $controller->dashboardAction();
+        }
 
-	}
+    }
 }

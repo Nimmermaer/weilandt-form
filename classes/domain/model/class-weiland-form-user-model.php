@@ -29,131 +29,132 @@
 /**
  * Class Weiland_Form_User_Model
  */
-class Weiland_Form_User_Model extends Weiland_Form_Model {
+class Weiland_Form_User_Model extends Weiland_Form_Model
+{
 
-	const tableName = 'pl_weilandt_form_user';
+    const tableName = 'pl_weilandt_form_user';
 
-	/**
-	 * @var string
-	 */
-	public $gender = '';
+    /**
+     * @var string
+     */
+    public $gender = '';
 
-	/**
-	 * @var string
-	 */
-	public $contactPerson = '';
+    /**
+     * @var string
+     */
+    public $contactPerson = '';
 
-	/**
-	 * @var string
-	 */
-	public $companyName = '';
+    /**
+     * @var string
+     */
+    public $companyName = '';
 
-	/**
-	 * @var string
-	 */
-	public $companyStreet = '';
+    /**
+     * @var string
+     */
+    public $companyStreet = '';
 
-	/**
-	 * @var string
-	 */
-	public $companyLocation = '';
-	/**
-	 * @var string
-	 */
-	public $companyCountry = '';
-	/**
-	 * @var string
-	 */
-	public $fullName = '';
+    /**
+     * @var string
+     */
+    public $companyLocation = '';
+    /**
+     * @var string
+     */
+    public $companyCountry = '';
+    /**
+     * @var string
+     */
+    public $fullName = '';
 
-	/**
-	 * @var string
-	 */
-	public $street = '';
+    /**
+     * @var string
+     */
+    public $street = '';
 
-	/**
-	 * @var string
-	 */
-	public $location = '';
+    /**
+     * @var string
+     */
+    public $location = '';
 
-	/**
-	 * @var string
-	 */
-	public $country = '';
+    /**
+     * @var string
+     */
+    public $country = '';
 
-	/**
-	 * @var string
-	 */
-	public $forms = '';
+    /**
+     * @var string
+     */
+    public $forms = '';
 
-	/**
-	 * @var string
-	 */
-	public $fax = '';
+    /**
+     * @var string
+     */
+    public $fax = '';
 
-	/**
-	 * @var string
-	 */
-	public $password = '';
+    /**
+     * @var string
+     */
+    public $password = '';
 
-	/**
-	 * @var string
-	 */
-	public $streetNo = '';
+    /**
+     * @var string
+     */
+    public $streetNo = '';
 
-	/**
-	 * @var string
-	 */
-	public $zip = '';
+    /**
+     * @var string
+     */
+    public $zip = '';
 
-	/**
-	 * @var string
-	 */
-	public $city = '';
+    /**
+     * @var string
+     */
+    public $city = '';
 
-	/**
-	 * @var string
-	 */
-	public $phone  ='';
+    /**
+     * @var string
+     */
+    public $phone = '';
 
+    /**
+     * @var string
+     */
+    public $email = '';
 
-	/**
-	 * @var string
-	 */
-	public $email ='';
+    /**
+     * @var string
+     */
+    public $vatNo = '';
 
-	/**
-	 * @var string
-	 */
-	public $vatNo = '';
+    /**
+     * @var integer
+     */
+    public $hidden = 0;
 
-	/**
-	 * @var integer
-	 */
-	public $hidden = 0;
+    /**
+     * @var integer
+     */
+    public $deleted = 0;
 
-	/**
-	 * @var integer
-	 */
-	public $deleted = 0;
+    /**
+     * @var array
+     */
+    protected $mails = '';
 
-	/**
-	 * @var array
-	 */
-	protected $mails = '';
-
-	protected function initializeObject() {
-		$values = '';
-		$values  = $this->mails;
-		$this->mails = array();
-	if ( $values ) {
-			foreach ( $values as $mail ) {
-				$mail      = new Weiland_Form_Mail_Model($mail);
-				$mail->userId = $this->getId();
-				$mail->persist();
-			}
-		}
-	}
+    protected function initializeObject()
+    {
+        $values = '';
+        $values = $this->mails;
+        $this->mails = array();
+        if ($values) {
+            foreach ($values as $mail) {
+                $mail = new Weiland_Form_Assignment_Model($mail);
+                $mail->userId = $this->getId();
+                $mail->persist();
+            }
+        }
+    }
 
 
 }

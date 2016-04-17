@@ -22,10 +22,12 @@
 /**
  * Class Weiland_Form_User_Controller
  */
-class Weiland_Form_User_Controller extends Weiland_Form_Admin_Controller {
+class Weiland_Form_User_Controller extends Weiland_Form_Admin_Controller
+{
 
 
-	public static function showAction(){
+    public static function showAction()
+    {
 
-	}
+    }
 }

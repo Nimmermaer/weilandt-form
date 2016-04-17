@@ -29,29 +29,49 @@
 /**
  * Class Weiland_Form_Admin_Controller
  */
-class Weiland_Form_Admin_Controller extends Weiland_Form_Controller {
+class Weiland_Form_Admin_Controller extends Weiland_Form_Controller
+{
 
-	/**
-	 *  dashboardAction
-	 */
-	public function dashboardAction() {
-		if ( class_exists( 'WPFlashMessages' ) ) {
-			WPFlashMessages::show_flash_messages();
-		}
+    /**
+     *  dashboardAction
+     */
+    public function dashboardAction()
+    {
+        if (class_exists('WPFlashMessages')) {
+            WPFlashMessages::show_flash_messages();
+        }
 
-		$devices = Weiland_Form_Device_Model::findAll();
-		$mails = Weiland_Form_User_Model::findAll();
-		$forms = $GLOBALS['Forms'];
-		foreach($forms as $key => $value) {
-			$forms[$key]['devices'] = Weiland_Form_Device_Model::findByFormId($value['id']);
-		}
-		echo $this->view->render( 'backend/admin-dashboard.html',
-			array(
-				'devices' => $devices,
-				'siteUrl' => get_site_url(),
-				'forms' => $GLOBALS['Forms'],
-				'mails' => $mails,
-			) );
+        $devices = Weiland_Form_Device_Model::findAll();
+        $mails = Weiland_Form_User_Model::findAll();
+        $forms = $GLOBALS['Forms'];
+        foreach ($forms as $key => $value) {
+            $forms[$key]['devices'] = Weiland_Form_Device_Model::findByFormId($value['id']);
+        }
+        echo $this->view->render('backend/admin-dashboard',
+            array(
+                'devices' => $devices,
+                'siteUrl' => get_site_url(),
+                'forms' => $GLOBALS['Forms'],
+                'mails' => $mails,
+            ));
 
-	}
+    }
+
+    public function redirect($actionName, $controllerName)
+    {
+        $redirectUrl = get_site_url() . '/wp-admin/admin.php?page=Weilandt&pl_weilandt[controller]=' . $controllerName . '&pl_weilandt[action]=' . $actionName;
+
+        if (!headers_sent()) {
+            header('Location: ' . $redirectUrl);
+            exit;
+        } else {
+            echo '<script type="text/javascript">';
+            echo 'window.location.href="' . $redirectUrl . '";';
+            echo '</script>';
+            echo '<noscript>';
+            echo '<meta http-equiv="refresh" content="0;url=' . $redirectUrl . '" />';
+            echo '</noscript>';
+            exit;
+        }
+    }
 }

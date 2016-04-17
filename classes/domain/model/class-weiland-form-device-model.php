@@ -29,67 +29,73 @@
 /**
  * Class Weiland_Form_Device_Model
  */
-class Weiland_Form_Device_Model extends Weiland_Form_Model {
+class Weiland_Form_Device_Model extends Weiland_Form_Model
+{
 
-	const tableName = 'pl_weilandt_form_device';
+    const tableName = 'pl_weilandt_form_device';
 
-	/**
-	 * @var int
-	 */
-	public $id;
+    /**
+     * @var int
+     */
+    public $id;
 
-	/**
-	 * @var string
-	 */
-	public $name = '';
+    /**
+     * @var string
+     */
+    public $name = '';
 
-	/**
-	 * @var int
-	 */
-	public $formId = 0;
+    /**
+     * @var int
+     */
+    public $formId = 0;
 
-	/**
-	 * @return string
-	 */
-	public function getName() {
-		return $this->name;
-	}
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
 
-	/**
-	 * @param string $name
-	 */
-	public function setName( $name ) {
-		$this->name = $name;
-	}
+    /**
+     * @param string $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
 
-	/**
-	 * @return int
-	 */
-	public function getFormId() {
-		return $this->formId;
-	}
+    /**
+     * @return int
+     */
+    public function getFormId()
+    {
+        return $this->formId;
+    }
 
-	/**
-	 * @param int $formId
-	 */
-	public function setFormId( $formId ) {
-		$this->formId = $formId;
-	}
+    /**
+     * @param int $formId
+     */
+    public function setFormId($formId)
+    {
+        $this->formId = $formId;
+    }
 
-	/**
-	 * @return int
-	 */
-	public function getId() {
-		return $this->id;
-	}
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
-	/**
-	 * @param int $id
-	 */
-	public function setId( $id ) {
-		$this->id = $id;
-	}
-
+    /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
 
 
 }

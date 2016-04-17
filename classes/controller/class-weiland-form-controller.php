@@ -29,9 +29,12 @@
 /**
  * Class Weiland_Form_Controller
  */
-class Weiland_Form_Controller
+abstract class Weiland_Form_Controller
 {
 
+    /**
+     * @var Twig_Environment
+     */
     protected $view = null;
 
     protected $request = null;
@@ -46,21 +49,16 @@ class Weiland_Form_Controller
     protected function loadView()
     {
 
-        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN')
+        $languageCode = 'de_DE';
+        if (class_exists('Polylang') && function_exists('pll_current_language')) {
+            $languageCode = pll_current_language('locale') . 'UTF-8';
+        }
+        putenv('LC_ALL=' . $languageCode);
+        setlocale(LC_ALL, $languageCode);
+        bindtextdomain("weilandtForm", WEILANDT_PATH . '/res/lang');
+        textdomain("weilandtForm");
+        bind_textdomain_codeset('weilandtForm', 'UTF-8');
 
-            if (class_exists('Polylang') && function_exists('pll_current_language')) {
-                putenv('LC_ALL=' . pll_current_language('locale') . 'UTF-8');
-                setlocale(LC_ALL, pll_current_language('locale') . 'UTF-8');
-                bindtextdomain("weilandtForm", WEILANDT_PATH . '/res/lang');
-                textdomain("weilandtForm");
-                bind_textdomain_codeset('weilandtForm', 'UTF-8');
-            } else {
-                putenv('LC_ALL=de_DE');
-                setlocale(LC_ALL, 'de_DE');
-                bindtextdomain("weilandtForm", WEILANDT_PATH . '/res/lang');
-                textdomain("weilandtForm");
-                bind_textdomain_codeset('weilandtForm', 'UTF-8');
-            }
 
         require_once WEILANDT_PATH . 'vendor/twig/twig/lib/Twig/Autoloader.php';
         require_once WEILANDT_PATH . 'vendor/twig/extensions/lib/Twig/Extensions/Autoloader.php';
@@ -68,11 +66,13 @@ class Weiland_Form_Controller
         Twig_Extensions_Autoloader::register();
         $tplDir = WEILANDT_PATH . '/res/html/templates';
         $loader = new Twig_Loader_Filesystem(WEILANDT_PATH . '/res/html/templates');
-        $this->view = new Twig_Environment($loader, array(
-            //'debug' => true,
+
+        $this->view = new Weiland_Form_View_Twig($loader, array(
+            'debug' => true,
             'cache' => WEILANDT_PATH . '/res/html/twig_compilation_cache',
-            //'auto_reload' => true
+            'auto_reload' => true
         ));
+
         $this->view->addExtension(new Twig_Extensions_Extension_I18n());
         $this->view->addExtension(new Twig_Extension_Debug());
 
@@ -91,6 +91,9 @@ class Weiland_Form_Controller
         }
     }
 
+    /**
+     *
+     */
     protected function buildRequestObject()
     {
         $request = new StdClass();
@@ -104,21 +107,5 @@ class Weiland_Form_Controller
         $this->request = $request;
     }
 
-    public function redirect($actionName, $controllerName)
-    {
-        $redirectUrl = get_site_url() . '/wp-admin/admin.php?page=Weilandt&pl_weilandt[controller]=' . $controllerName . '&pl_weilandt[action]=' . $actionName;
-
-        if (!headers_sent()) {
-            header('Location: ' . $redirectUrl);
-            exit;
-        } else {
-            echo '<script type="text/javascript">';
-            echo 'window.location.href="' . $redirectUrl . '";';
-            echo '</script>';
-            echo '<noscript>';
-            echo '<meta http-equiv="refresh" content="0;url=' . $redirectUrl . '" />';
-            echo '</noscript>';
-            exit;
-        }
-    }
+    abstract public function redirect($actionName, $controllerName);
 }

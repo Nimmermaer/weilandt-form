@@ -1,6 +1,6 @@
 <?php
 /**
- * The plugin bootstrap file
+ * The Weilandt Plugin
  *
  * This file is read by WordPress to generate the plugin information in the plugin
  * admin area. This file also includes all of the dependencies used by the plugin,
@@ -14,7 +14,7 @@
  * @wordpress-plugin
  * Plugin Name:       Weilandt Form
  * Plugin URI:        /
- * Description:       A simple plugin
+ * Description:       Assignment managment
  * Version:           0.0.1
  * Author:            Michael Blunck
  * Author URI:        http://www.exteo.de
@@ -49,17 +49,20 @@ $GLOBALS['Forms'] = array(
     array(
         'id' => '1',
         'name' => 'Casio Reparaturauftrag',
-        'color' => 'green'
+        'color' => 'green',
+        'class' => 'casio'
     ),
     array(
         'id' => '2',
         'name' => 'M3Mobile Reparaturauftrag',
-        'color' => 'yellow'
+        'color' => 'yellow',
+        'class' => 'm3'
     ),
     array(
         'id' => '3',
         'name' => 'RMA Request Form',
-        'color' => 'primary'
+        'color' => 'primary',
+        'class' => 'rma'
     )
 );
 
@@ -78,17 +81,21 @@ function weilandt_form_options()
 }
 
 add_shortcode('weilandt_frontend', function ($atts) {
+
     require_once plugin_dir_path(__FILE__) . 'classes/class-weiland-form-plugin-manager.php';
     $pluginManager = new Weiland_Form_Plugin_Manager();
     $pluginManager->activateFrontend($atts);
 });
 
 add_action('the_post', function () {
+    /*
     if (array_key_exists('form', $_REQUEST)) {
+
         $form = new Weiland_Form_User_Model($_REQUEST['form']);
         $form->persist();
-    }
 
+    }
+    */
 });
 
 add_action('admin_post_contact_form', function () {

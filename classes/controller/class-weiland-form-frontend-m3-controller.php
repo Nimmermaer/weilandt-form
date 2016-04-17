@@ -26,70 +26,39 @@
  *  Created by PhpStorm.
  ******************************************************************/
 
+
 /**
- * Class Weiland_Form_Mail_Model
+ * Class Weiland_Form_Frontend_M3_Controller
  */
-class Weiland_Form_Mail_Model extends Weiland_Form_Model {
+class Weiland_Form_Frontend_M3_Controller extends Weiland_Form_Frontend_Controller
+{
 
-	const tableName = 'pl_weilandt_form_mail';
+    const tableName = 'pl_weilandt_form_device';
 
-	/**
-	 * @var integer
-	 */
-	public $id;
+    /**
+     *
+     */
+    public function newAction()
+    {
+        global $wpdb;
 
-	/**
-	 * @var string
-	 */
-	public $backAdress = '';
+        $countries = $rawResults = $wpdb->get_results('SELECT * FROM ' . $wpdb->prefix . 'countries');
+        esc_url(admin_url('admin-post.php'));
 
-	/**
-	 * @var string
-	 */
-	public $repeatRepair ='';
+        echo $this->view->render('frontend/casio/new', array(
+            'countries' => $countries,
+            'devices'   => Weiland_Form_Device_Model::findByAttribute('formId', 1),
+        ));
+    }
 
-	/**
-	 * @var string
-	 */
-	public $comments ='';
-
-	/**
-	 * @var string
-	 */
-	public $agb = '';
-
-	/**
-	 * @var integer
-	 */
-	public $hidden = 0;
-
-	/**
-	 * @var integer
-	 */
-	public $deleted = 0;
-
-	/**
-	 * @var integer
-	 */
-	public $userId = 0;
-
-	/**
-	 * @var array
-	 */
-	protected $repairDevices = '';
-
-	/**
-	 * 
-	 */
-	protected function initializeObject() {
-		 $values  = $this->repairDevices;
-		if ( $values ) {
-			foreach ( $values as $repairDevice ) {
-			//var_dump($repairDevice);
-				$repairDevice       = new Weiland_Form_Device_Repair_Model( $repairDevice );
-				$repairDevice->persist( );
-			}
-		}
-	}
+    /**
+     *
+     */
+    public function createAction()
+    {
+        $userToAdd = new Weiland_Form_User_Model($this->request->arguments['user']);
+        var_dump($this->request->arguments['user']);
+        var_dump($userToAdd);
+    }
 
 }

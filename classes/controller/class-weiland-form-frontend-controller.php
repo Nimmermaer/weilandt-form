@@ -33,36 +33,32 @@
 class Weiland_Form_Frontend_Controller extends Weiland_Form_Controller
 {
 
-    const tableName = 'pl_weilandt_form_device';
-
     /**
-     * @param $attr
+     * indexd action
+     *
+     * @return void
      */
-    public function dispatchForm($attr)
+    public function indexAction()
     {
-        if (key($attr) == 'formular')
-           $this->showFormAction($attr['formular']);
-     }
-
-    /**
-     * @param $id
-     */
-    public function showFormAction($id)
-    {
-
-
-        global $wpdb;
-        //$countries = $rawResults = $wpdb->get_results('SELECT * FROM ' . $wpdb->prefix . 'countries');
-        esc_url(admin_url('admin-post.php'));
-
-       if(file_exists(WEILANDT_PATH . '/res/html/templates/frontend/form'.$id.'.html')) {
-            echo $this->view->render('frontend/form'.$id.'.html', array(
-                //'countries' => $countries,
-                //'devices'   => Weiland_Form_Device_Model::findByAttribute('formId', $id),
-            ));
-        }else {
-            echo $this->view->render('frontend/error.html');
-        }
+        die('no view / no action selected');
     }
 
+
+    public function redirect($actionName, $controllerName)
+    {
+        $redirectUrl = get_site_url() . '/?pl_weilandt[controller]=' . $controllerName . '&pl_weilandt[action]=' . $actionName;
+
+        if (!headers_sent()) {
+            header('Location: ' . $redirectUrl);
+            exit;
+        } else {
+            echo '<script type="text/javascript">';
+            echo 'window.location.href="' . $redirectUrl . '";';
+            echo '</script>';
+            echo '<noscript>';
+            echo '<meta http-equiv="refresh" content="0;url=' . $redirectUrl . '" />';
+            echo '</noscript>';
+            exit;
+        }
+    }
 }

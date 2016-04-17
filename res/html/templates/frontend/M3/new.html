@@ -1,0 +1,108 @@
+<form method="post"
+      action=''
+      id="form_2">
+    <input type="hidden" name="pl_weilandt[controller]" value="m3"/>
+    <input type="hidden" name="pl_weilandt[action]" value="create"/>
+    <div class="form-group">
+        <label for="custom_number">{% trans 'Kundennummer' %}</label>
+        <input type="text" class="form-control" id="custom_number" name="pl_weilandt_form[user][customNumber]">
+        <label for="salutation">{% trans 'Anrede' %}</label>
+        <select class="form-control" id="salutation" name="pl_weilandt_form[user][gender]">
+            <option value="0">{% trans 'Frau' %}</option>
+            <option value="1">{% trans 'Herr' %}</option>
+        </select>
+        <label for="company">{% trans 'Firmenname' %}</label>
+        <input type="text" class="form-control" id="company" name="pl_weilandt_form[user][companyName]">
+
+        <label for="street">{% trans 'Straße' %} {% trans 'Hausnummer' %}</label>
+        <input type="text" class="form-control" id="street" name="pl_weilandt_form[user][companyStreet]">
+
+        <label for="zip">{% trans 'Postleitzahl' %}</label>
+        <input type="text" class="form-control" id="zip" name="pl_weilandt_form[user][companyZip]">
+
+        <label for="city">{% trans 'Ort' %}</label>
+        <input type="text" class="form-control" id="city" name="pl_weilandt_form[user][companyLocation]">
+
+        <div class="form-group">
+            <label for="country">{% trans 'Land' %}:</label>
+            <select class="form-control" id="country" name="pl_weilandt_form[user][companyCountry]">
+                {% for country in countries %}
+                <option value="{{country.de}}">{{country.de}}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <label for="email">{% trans 'Email' %}</label>
+
+        <div class="form-group input-group">
+
+            <span class="input-group-addon">@</span>
+            <input type="text" class="form-control" id="email" name="pl_weilandt_form[user][email]" placeholder="">
+        </div>
+        <label for="phone">{% trans 'Telefon' %}</label>
+        <input type="text" class="form-control" id="phone" name="pl_weilandt_form[user][phone]">
+    </div>
+    <div class="form-group">
+        <label for="name">{% trans 'Name des Ansprechpartners' %}</label>
+        <input type="text" class="form-control" id="name" name="pl_weilandt_form[user][fullName]">
+        <label for="personStreet">{% trans 'Straße' %} {% trans 'Hausnummer' %}</label>
+        <input type="text" class="form-control" id="personStreet" name="pl_weilandt_form[user][street]">
+        <label for="personZip">{% trans 'Postleitzahl' %}:</label>
+        <input type="text" class="form-control" id="personZip" name="pl_weilandt_form[user][zip]">
+        <label for="personCity">{% trans 'Ort' %}</label>
+        <input type="text" class="form-control" id="personCity" name="pl_weilandt_form[user][city]">
+        <label for="vat">{% trans 'UID-Nr.' %}</label>
+        <input type="text" class="form-control" id="vat" name="pl_weilandt_form[user][vatNo]">
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-12">
+                <fieldset>
+                    <h3>{% trans 'Druckerinformationen' %}</h3>
+
+                    <div class="col-md-1">
+                        <label for="count">{% trans 'Nr.' %}</label>
+                        <span id="count" data-count="1">1</span>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label for="device">{% trans 'Druckertyp' %}:</label>
+                            <select class="form-control" id="device"
+                                    name="pl_weilandt_form[repairDevices][1][deviceId]">
+                                {% for device in devices %}
+                                <option value="{{device.id}}">{{device.name}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="serial">{% trans 'Seriennummer' %}</label>
+
+                        <div class="form-group input-group">
+                                            <span class="input-group-addon"><i class="fa fa-phone"></i>
+                                            </span>
+                            <input type="text" class="form-control" id='serial'
+                                   name="pl_weilandt_form[repairDevices][1][serialNo]"
+                                   placeholder="ID">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="message">{% trans 'Problembeschreibung' %}</label>
+                            <textarea id="message" class="form-control" rows="3"
+                                      name="pl_weilandt_form[repairDevices][1][problemDescription]"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <input type="checkbox" value="1" id="warranty"
+                                   name="pl_weilandt_form[repairDevices][1][warranty]">
+                            <label for="warranty">{% trans 'Garantie' %}</label>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">{% trans 'Bestätigen' %}</button>
+</form>
